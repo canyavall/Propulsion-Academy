@@ -5,7 +5,7 @@ function isString (str){
 		console.log("True");
 	}else{
 		console.log("False");
-	}	
+	}
 }
 
 isString('hello'); // => true
@@ -21,7 +21,7 @@ function isArray (arr){
 		console.log("True");
 	}else{
 		console.log("False");
-	}	
+	}
 }
 
 isArray('hello'); // => false
@@ -99,7 +99,7 @@ convert(324) // => [4, 3, 2]
 function countRepetitions (arrayToCheck) {
 	var result = {};
 	var arrayResult = [];
-	for (var i = 0; i < arrayToCheck.length; i++){		
+	for (var i = 0; i < arrayToCheck.length; i++){
 		if (!arrayResult.includes(arrayToCheck[i])){
 			var counter = 0;
 			for (var u = 0; u < arrayToCheck.length; u++){
@@ -109,7 +109,7 @@ function countRepetitions (arrayToCheck) {
 			}
 			result[arrayToCheck[i]] = counter;
 		}
-		 
+
 	}
 		return result;
 
@@ -232,11 +232,11 @@ fibs(1); // => [0]
 */
 
 //Zero Sum
-/*
+
 function zeroSum(nums) {
 	var result = [];
 	for (i = 0; i <= nums.length;i++){
-		if (nums[i] > 0) {					
+		if (nums[i] > 0) {
 			for (z = 0; z <nums.length;z++){
 				if (nums[i] + nums[ z] === 0){
 					var value = "[" + i + "," + z + "]";
@@ -252,4 +252,3 @@ function zeroSum(nums) {
 zeroSum([1, 5, 0, -5, 3, -1]) // => [[0, 5], [1, 3]]
 zeroSum([1, -1]) // => [[0, 1]]
 zeroSum([0, 4, 3, 5]) // => []
-*/

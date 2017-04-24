@@ -4,15 +4,23 @@ function Restaurant (){
 	this.dishList = {};
 	this.orderNumber = 0;
 	//Create an order for the restaurant
-	this.orderDish = function (dish) {		
+	this.orderDish = function (dish) {
 		this.dishList[this.orderNumber] = dish;
 		this.orderNumber++;
-	}
+	};
 	//Print all orders
 	this.printOrders = function () {
 		for (var key in this.dishList){
 			console.log("Order #" + key + ": " + this.dishList[key].name);
 		}
+	};
+	this.printCheck = function () {
+		var totalPrice = 0;
+		for (var key in this.dishList){
+			totalPrice = totalPrice + this.dishList[key].price;
+			console.log("Order #" + key + ": " + this.dishList[key].name + ' - ' + this.dishList[key].price);
+		}
+		console.log("Total: " + totalPrice);
 	}
 }
 
@@ -32,7 +40,7 @@ function Dish (name, price, ingredients) {
 	this.profit = function () {
 		var profitValue = this.price - this.cost();
 		//console.log (profitValue);
-		return profitValue;		
+		return profitValue;
 	}
 }
 
@@ -55,5 +63,4 @@ restaurant.orderDish(pizza);
 restaurant.orderDish(salad);
 restaurant.printOrders();
 pizza.profit();
-
-
+restaurant.printCheck();

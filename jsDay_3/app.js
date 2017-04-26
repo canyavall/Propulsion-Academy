@@ -1,24 +1,21 @@
 'use strict';
 
-
-
 function Game () {
-  this.canvasSquare = window.document.getElementById('mainField');
-  this.squareContext = this.canvasSquare.getContext('2d');
+  this.canvasField = window.document.getElementById('mainField');
+  this.fieldContext = this.canvasField.getContext('2d');
   this.canvasBall = window.document.getElementById('mainField');
   this.ballContext = this.canvasBall.getContext('2d');
+  this.field = new Field();
+  this.ball = new Ball(5, [30,30]);
 
   this.play = function () {
     //Create field
-    this.field = new Field();
-    this.field.render (this.squareContext);
-
-    //Create box
-    this.ball = new Ball(10, [30,30]);
+    this.field.render (this.fieldContext);
+    //Create ball
     this.ball.render (this.ballContext);
 
     //Move the ball
-    setInterval(this.resetCanvas(), 10);
+    setInterval(this.resetCanvas.bind(this), 10);
   };
 
   /**
@@ -27,6 +24,7 @@ function Game () {
    */
   this.resetCanvas = function () {
     this.ball.move();
+    this.field.render (this.fieldContext);
     this.ball.render(this.ballContext);
   };
 
@@ -68,8 +66,8 @@ function Ball (radius, initial) {
   }
 
   this.move = function () {
-    this.initial[0] = this.initial[0] + 10;
-    this.initial[1] = this.initial[1] + 10;
+    this.initial[0]++;
+    this.initial[1]++;
   }
 }
 

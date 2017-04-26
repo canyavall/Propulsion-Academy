@@ -1,13 +1,13 @@
-/*#mainField {
-    padding-left: 0;
+#mainField {
+    /*padding-left: 0;
     padding-right: 0;
     margin-left: auto;
     margin-right: auto;
-    display: block;
+    display: block;*/
     width: 400px;
     height: 500px;
 }
-
+/*
 #ball {
     padding-left: 0;
     padding-right: 0;
@@ -16,4 +16,5 @@
     display: block;
     width: 400px;
     height: 500px;
-}*/
+}
+*/

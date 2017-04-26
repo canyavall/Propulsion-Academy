@@ -16,15 +16,33 @@ function Game (widthCanvas, heightCanvas) {
   //Get canvas
   this.canvas = window.document.getElementById('canvas');
   this.canvasContext = this.canvas.getContext('2d');
+
+  //Prepare parameters
   this.board = new Board(this.canvasContext);
   this.ball = new Ball(5, [150,250], this.canvasContext);
   this.paddle = new Paddle(this.canvasContext);
   this.width = widthCanvas;
   this.heigth = heightCanvas;
-  this.blocks = []
+  this.blocks = [];
+
+  //Control the events
+  document.addEventListener('keydown', function(event) {
+    //console.log(this);
+    if (event.keyCode == 37) {
+      this.paddle.move(37);
+      this.paddle.render();
+    }else if (event.keyCode == 39){
+      this.paddle.move(39);
+      this.paddle.render();
+    }
 
 
+  }.bind(this));
 
+/**
+ * Method to initiate the game
+ * @return {[type]} [description]
+ */
   this.play = function () {
     //Create initial board
     this.board.render();

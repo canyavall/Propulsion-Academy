@@ -10,8 +10,9 @@ function Block (position, width, heigth, color, context) {
   this.width = width;
   this.color = color;
   this.context = context;
+
   /**
-   * Render the block
+   * Renders the block in the canvas
    * @return {[type]} [description]
    */
   this.render = function () {

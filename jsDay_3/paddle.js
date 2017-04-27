@@ -8,28 +8,31 @@ function Paddle (context) {
   this.context = context;
   this.position = [this.context.canvas.clientWidth/2, this.context.canvas.clientHeight-20];
   this.width = 50;
-  this.heigth = 10;
+  this.height = 10;
+  this.speed = 1;
+  this.direction = 0;
+
   /**
    * Renders the paddle in the canvas
    * @return {[type]} [description]
    */
   this.render = function () {
     this.context.fillStyle = 'white';
-    this.context.fillRect(this.position[0], this.position[1], this.width, this.heigth);
+    this.context.fillRect(this.position[0], this.position[1], this.width, this.height);
   };
 
   /**
    * Move the paddle, the paddle must be moved only horizontal
    * @return {[type]} [description]
    */
-  this.move = function (direction) {
-    //We use the position in order to know the direction of the ball
-   if (this.position[0] >= 0 && this.position[0] + this.width <= this.context.canvas.clientWidth){
-     if (direction === 37 && this.position[0] - 4 > 0){ //Left Arrow
-       this.position[0] += -4;
-     }else  {
-       this.position[0]+= 4;
-     }
-   }
-  }
+  this.move = function () {
+
+    //We don't allow the paddle to go out from the board
+    //But we move to the left or right tdepending on the key pressed
+    if (this.directionLeft == true) this.position[0] += -this.speed;
+    if (this.directionRight == true) this.position[0] += this.speed;
+    if (this.direction == 0 ) this.position[0];
+    if (this.position[0] < 0 ) this.position[0] = 0;
+    if (this.position[0] > this.context.canvas.clientWidth - this.width ) this.position[0] = this.context.canvas.clientWidth - this.width;
+  };
 }

@@ -6,37 +6,58 @@
  * @param {[type]} heightCanvas [description]
  */
 function Game (widthCanvas, heightCanvas) {
-  //Create the canvas
-  var canvasDom = document.createElement('canvas');
-  canvasDom.id     = "canvas";
-  canvasDom.width  = widthCanvas;
-  canvasDom.height = heightCanvas;
-  window.document.body.appendChild(canvasDom);
+  //Create the DOM
+  // let wrapper = document.createElement("div");
+  // wrapper.id = "wrapper"
+  // window.document.body.appendChild(wrapper);
+
+  let menu = document.createElement("div");
+  menu.id = "menu"
+  menu.style.width = widthCanvas/2 + "px";
+  menu.style.height = heightCanvas + "px";
+  menu.style.background = "pink";
+  menu.style.border = "1px solid black";
+  menu.innerHTML = "Hello";
+    window.document.body.appendChild(menu)
+  // window.document.getElementById('wrapper').appendChild(menu)
+
+  this.canvas = document.createElement('canvas');
+  this.canvas.id     = "canvas";
+  this.canvas.width  = widthCanvas;
+  this.canvas.height = heightCanvas;
+  window.document.body.appendChild(this.canvas);
+  // window.document.getElementById('wrapper').appendChild(this.canvas)
 
   //Get canvas
-  this.canvas = window.document.getElementById('canvas');
   this.canvasContext = this.canvas.getContext('2d');
 
   //Prepare parameters
   this.board = new Board(this.canvasContext);
-  this.ball = new Ball(5, [150,250], this.canvasContext);
+  this.ball = new Ball(5, [100,350], this.canvasContext);
   this.paddle = new Paddle(this.canvasContext);
   this.width = widthCanvas;
-  this.heigth = heightCanvas;
+  this.height = heightCanvas;
   this.blocks = [];
+  this.blockNum = 23;
+
+  // Stop the game
+  this.intervalId = 0;
 
   //Control the events
   document.addEventListener('keydown', function(event) {
-    //console.log(this);
     if (event.keyCode == 37) {
-      this.paddle.move(37);
-      this.paddle.render();
+      this.paddle.directionLeft = true;
     }else if (event.keyCode == 39){
-      this.paddle.move(39);
-      this.paddle.render();
+      this.paddle.directionRight = true;
     }
+  }.bind(this));
 
-
+  document.addEventListener('keyup', function(event) {
+    if (event.keyCode == 37) {
+      this.paddle.directionLeft = false;
+    }else if (event.keyCode == 39){
+      this.paddle.directionRight = false;
+    }
   }.bind(this));
 
 /**
@@ -51,13 +72,13 @@ function Game (widthCanvas, heightCanvas) {
     //Create initial paddle
     this.paddle.render();
     //Create wrapper
-    this.blockWrapper(30);
+    this.blockWrapper(this.blockNum);
     this.blocks.forEach(function (element) {
       element.render();
     });
 
     //Move the ball
-    setInterval(this.resetCanvas.bind(this), 10);
+    this.intervalId = setInterval(this.resetCanvas.bind(this), 10);
   };
 
   /**
@@ -70,24 +91,22 @@ function Game (widthCanvas, heightCanvas) {
     this.blockWidth = 40;
     this.blockHeight = 15;
     this.blockPosition = [0, 30];
+    this.hBorder = 5;
+    this.vBorder = 5;
 
-    for (let i = 0; i < num; i++) {
+    for (let i = 0; i <= num; i++) {
       if (this.blockPosition[0] + this.blockWidth >= this.maxWrapperWidth){
         this.blockPosition[0] = 30;
-        this.blockPosition[1] += this.blockHeight;
+        this.blockPosition[1] += this.blockHeight + this.hBorder;
+      }else if (i == 0){
+        this.blockPosition[0] = 30;
       }else{
-        this.blockPosition[0] += 30;
+        this.blockPosition[0] += this.blockWidth + this.vBorder;
       }
-      //this.currentPosition[i]=this.blockPosition;
-      //Define a random color for the block
-      let r = 255*Math.random()|0,
-          g = 255*Math.random()|0,
-          b = 255*Math.random()|0;
-      let color = 'rgb(' + r + ',' + g + ',' + b + ')';
-      //Push in the array the blocks already created
-      this.blocks.push(new Block(this.blockPosition.slice(0), this.blockWidth, this.blockHeight, color, this.canvasContext));
-    }
 
+      //Push in the array the blocks already created
+      this.blocks.push(new Block(this.blockPosition.slice(0), this.blockWidth, this.blockHeight, this.canvasContext));
+    }
   };
 
   /**
@@ -95,7 +114,14 @@ function Game (widthCanvas, heightCanvas) {
    * @return {[type]} [description]
    */
   this.resetCanvas = function () {
-    this.ball.move();
+    // Game Over!
+    if (this.ball.position[1] + this.ball.radius === this.canvasContext.canvas.clientHeight){
+      this.gameOver();
+    }
+
+    // Render all
+    this.ball.move(this.paddle, this.blocks);
+    this.paddle.move();
     this.board.render (this.canvasContext);
     this.paddle.render (this.canvasContext);
     this.ball.render(this.canvasContext);
@@ -104,4 +130,10 @@ function Game (widthCanvas, heightCanvas) {
     });
   };
 
+  this.gameOver = function () {
+    window.clearInterval(this.intervalId);
+    if (confirm("GAME OVER! \n Do you want to play again?")){
+
+    }
+  }
 }

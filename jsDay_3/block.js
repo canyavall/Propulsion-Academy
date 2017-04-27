@@ -7,7 +7,7 @@
  * @param {[int]} height   height of the block
  * @param {[object]} context  [description]
  */
-function Block (position, width, height, context) {
+app.Block = function (position, width, height, context) {
   this.position = position;
   this.width = width;
   this.height = height;
@@ -17,20 +17,19 @@ function Block (position, width, height, context) {
    //this.currentPosition[i]=this.blockPosition;
   //Define a random color for the block
   this.color = this.colorsArray[Math.floor(Math.random() * this.colorsArray.length)];
-
-  /**
-   * Renders the block in the canvas
-   */
-  this.render = function () {
-    
-    this.context.beginPath();
-    // Set faux rounded corners
-    this.context.lineJoin = "round";
-    this.context.lineWidth = this.cornerRadius;
-    this.context.fillStyle = this.color;
-
-    // Change origin and dimensions to match true size (a stroke makes the shape a bit larger)
-    this.context.fillRect(this.position[0], this.position[1], this.width, this.height);
-  };
-
 }
+
+/**
+ * Renders the block in the canvas
+ */
+app.Block.prototype.render = function () {
+
+  this.context.beginPath();
+  // Set faux rounded corners
+  this.context.lineJoin = "round";
+  this.context.lineWidth = this.cornerRadius;
+  this.context.fillStyle = this.color;
+
+  // Change origin and dimensions to match true size (a stroke makes the shape a bit larger)
+  this.context.fillRect(this.position[0], this.position[1], this.width, this.height);
+};

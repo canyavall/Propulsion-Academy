@@ -95,7 +95,7 @@ convert(324) // => [4, 3, 2]
 */
 
 //Count repetitions
-/*
+
 function countRepetitions (arrayToCheck) {
 	var result = {};
 	var arrayResult = [];
@@ -116,7 +116,7 @@ function countRepetitions (arrayToCheck) {
 }
 
 console.log (countRepetitions(['kerouac', 'fante', 'fante', 'buk', 'hemingway', 'hornby', 'kerouac', 'buk', 'fante']));
-*/
+
 
 //Cat and Mouse
 /*

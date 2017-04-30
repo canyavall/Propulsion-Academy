@@ -64,58 +64,57 @@ function convert (number){
 module.exports.convert = convert;
 
 
-//Count repetitions
+/**
+ * Count repetitions of one string inside an array
+ * Test: Added a control for empty value or empry array
+ * @param  {[array]} arrayToCheck Array to be checked
+ * @return {[object]} Object with number of coincidence for every value
+ */
 function countRepetitions (arrayToCheck) {
+	if (DataType.isUndefined(arrayToCheck) || DataType.isArray(arrayToCheck) === false || arrayToCheck.length <= 0 ) return false;
 	let result = {};
 	let arrayResult = [];
 	for (let i = 0; i < arrayToCheck.length; i++){
 		if (!arrayResult.includes(arrayToCheck[i])){
 			let counter = 0;
 			for (let u = 0; u < arrayToCheck.length; u++){
-				if (arrayToCheck[i] ===  arrayToCheck[u]){
-					counter++;
-				}
+				if (arrayToCheck[i] ===  arrayToCheck[u])	counter++;
 			}
 			result[arrayToCheck[i]] = counter;
 		}
-
 	}
 		return result;
-
 }
 module.exports.countRepetitions = countRepetitions;
 
 
-//Cat and Mouse
-/*
+/**
+ * We have to check the distance between C letter and m letter
+ * @param  {[string]}  str [String to check the distance]
+ * @return {Boolean}     True is caught, false it is not
+ */
 function isCaught(str){
-	let catPosition = str.indexOf('C');
-	let mousePosition = str.indexOf('m');
-	if (mousePosition > catPosition + 3){
-		console.log("Another day")
-	}else{
-		console.log("Gotcha!")
-	}
+	if (DataType.isUndefined(str) || DataType.isString(str) === false) return false;
+	let catPosition = str.indexOf('C'),
+			mousePosition = str.indexOf('m');
+	if (mousePosition > catPosition + 3) return false;
+	return true;
 }
+module.exports.isCaught = isCaught;
 
-isCaught('C.....m') // => false
-isCaught('C..m') // => true
-isCaught('..C..m') // => true
-*/
 
-//Split the bill
-/*
-let group = {
-    Amy: 20,
-    Bill: 15,
-    Chris: 10
-}
-
+/**
+ * Split the bill between all people in the object
+ * Test: COntrol arguments and control the amount to be paid by user is bigger than 0
+ * @param  {[object]} group [description]
+ * @return {[object]}       [description]
+ */
 function splitTheBill(group) {
-	let totalAmount = 0;
-	let numberOfUsers = 0;
-	let payByUser = 0;
-	let result = {};
+	if (DataType.isUndefined(group) || DataType.isPlainObject(group) === false) return false;
+	let totalAmount = 0.
+			numberOfUsers = 0.
+			payByUser = 0.
+			result = {};
 
 	//Get the total amount
 	for (let key in group) {
@@ -124,80 +123,67 @@ function splitTheBill(group) {
 	}
 	//How much have to pay everyone
 	payByUser = totalAmount / numberOfUsers;
-
+	if (payByUser < 0) return false
 	//Calculate the amount
 	for (let key in group) {
 		let toPay = payByUser - group[key];
 		result[key] = toPay;
 	}
-
-	console.log(result);
-
+	return result;
 }
 
-splitTheBill(group); // => { Amy: -5, Bill: 0, Chris: 5 }
-*/
+module.exports.splitTheBill = splitTheBill;
 
-//Exponentiation
-/*
+
+
+/**
+ * Calculate the exponent of two numbers
+ * @param  {[number]} base
+ * @param  {[numer]} exponent
+ * @return {[number]}
+ */
 function exp (base, exponent){
-	if (exponent == 0 ){
-		return 1;
-	}else{
-		return base * exp(base, --exponent)
-	}
+	if (DataType.isUndefined(base) ||
+			DataType.isUndefined(exponent) ||
+			DataType.isNumber(base) === false ||
+			DataType.isNumber(exponent) === false)
+				return false;
+	return Math.pow(base, exponent);
 }
+module.exports.exp = exp;
 
-console.log(exp(5, 3)); // => 125
-console.log(exp(2, 4)); // => 16
-console.log(exp(5, 1)); // => 5
-console.log(exp(6, 0)); // => 1
-*/
-
-//Factorial
-/*
+/**
+ * Calculate the factorial number
+ * @param  {[type]} num [description]
+ * @return {[type]}     [description]
+ */
 function factorial (num){
-	if (num === 0) {
-		return 1
-	}else{
-		return num * factorial (--num);
-	}
-
+	if (DataType.isUndefined(num) || DataType.isNumber(num) === false) return false;
+	if (num === 0) return 1;
+	return num * factorial (--num);
 }
-
-console.log(factorial(5)); // => 120
-console.log(factorial(4)); // => 24
-console.log(factorial(0)); // => 1
-*/
+module.exports.factorial = factorial;
 
 //Fibonacci
-/*
 //In this function we create the recursivity
 function fibRec (numReturns){
-	if (numReturns == 0){
-		return 0;
-	}else if (numReturns ==1){
-		return 1;
-	}else{
-		return fibRec(numReturns-1) + fibRec(numReturns-2);
-	}
+	if (numReturns == 0) return 0;
+	if (numReturns ==1)	return 1;
+	return fibRec(numReturns-1) + fibRec(numReturns-2);
 }
 
 // In this function we call the recursivity
 // to show the number in every step
 // and then we show an array with all numbers
 function fibs (numReturns){
+	if (DataType.isUndefined(numReturns) || DataType.isNumber(numReturns) === false) return false;
 	let arrayResult = [];
-	for (let i = 0; i < numReturns; i++){
-		arrayResult.push(fibRec (i));
-	}
-	console.log( arrayResult);
+	for (let i = 0; i < numReturns; i++) arrayResult.push(fibRec (i));
+	return arrayResult;
 }
 
-fibs(3); // => [0, 1, 1]
-fibs(7); // => [0, 1, 1, 2, 3, 5, 8]
-fibs(1); // => [0]
-*/
+module.exports.fibs = fibs;
+
 
 //Zero Sum
 /*

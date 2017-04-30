@@ -4,12 +4,12 @@
  * Defines the paddle to be played
  * @param {[object]} context Canvas context
  */
-app.Paddle = function (context) {
+app.Paddle = function (position, context) {
   this.context = context;
-  this.position = [this.context.canvas.clientWidth/2, this.context.canvas.clientHeight-20];
-  this.width = 50;
-  this.height = 10;
-  this.speed = 1;
+  this.position = position;
+  this.width = 10;
+  this.height = 60;
+  this.speed = 4;
   this.direction = 0;
 }
 
@@ -27,10 +27,10 @@ app.Paddle.prototype.render = function () {
 app.Paddle.prototype.move = function () {
 
   //We don't allow the paddle to go out from the board
-  //But we move to the left or right tdepending on the key pressed
-  if (this.directionLeft == true) this.position[0] += -this.speed;
-  if (this.directionRight == true) this.position[0] += this.speed;
-  if (this.direction == 0 ) this.position[0];
-  if (this.position[0] < 0 ) this.position[0] = 0;
-  if (this.position[0] > this.context.canvas.clientWidth - this.width ) this.position[0] = this.context.canvas.clientWidth - this.width;
+  //But we move to the top or bottom depending on the key pressed
+  if (this.directionTop == true) this.position[1] += -this.speed;
+  if (this.directionBottom == true) this.position[1] += this.speed;
+  if (this.direction == 0 ) this.position[1];
+  if (this.position[1] < 0 ) this.position[1] = 0;
+  if (this.position[1] > this.context.canvas.clientHeight - this.height ) this.position[1] = this.context.canvas.clientHeight - this.height;
 };

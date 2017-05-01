@@ -27,9 +27,7 @@ module.exports.areSameType = areSameType;
 //Sort and remove duplicated characters
 function longest (str1, str2){
 	//Changed when testing
-	if (DataType.isUndefined(str1) ||
-			DataType.isUndefined(str2) ||
-			DataType.isString(str1) === false ||
+	if (DataType.isString(str1) === false ||
 			DataType.isString(str2) === false)
 				return false;
 
@@ -54,7 +52,7 @@ module.exports.longest = longest;
  * because the output was an string
  */
 function convert (number){
-	if (DataType.isNumber(number) === false || DataType.isUndefined(number)) return false;
+	if (DataType.isNumber(number) === false) return false;
 	let numberSplit = number.toString().split("");
 	numberSplit = numberSplit.sort().reverse();
 	return numberSplit.map(function(item) {
@@ -71,7 +69,7 @@ module.exports.convert = convert;
  * @return {[object]} Object with number of coincidence for every value
  */
 function countRepetitions (arrayToCheck) {
-	if (DataType.isUndefined(arrayToCheck) || DataType.isArray(arrayToCheck) === false || arrayToCheck.length <= 0 ) return false;
+	if (DataType.isArray(arrayToCheck) === false || arrayToCheck.length <= 0 ) return false;
 	let result = {};
 	let arrayResult = [];
 	for (let i = 0; i < arrayToCheck.length; i++){
@@ -94,7 +92,7 @@ module.exports.countRepetitions = countRepetitions;
  * @return {Boolean}     True is caught, false it is not
  */
 function isCaught(str){
-	if (DataType.isUndefined(str) || DataType.isString(str) === false) return false;
+	if (DataType.isString(str) === false) return false;
 	let catPosition = str.indexOf('C'),
 			mousePosition = str.indexOf('m');
 	if (mousePosition > catPosition + 3) return false;
@@ -110,7 +108,7 @@ module.exports.isCaught = isCaught;
  * @return {[object]}       [description]
  */
 function splitTheBill(group) {
-	if (DataType.isUndefined(group) || DataType.isPlainObject(group) === false) return false;
+	if (DataType.isPlainObject(group) === false) return false;
 	let totalAmount = 0.
 			numberOfUsers = 0.
 			payByUser = 0.
@@ -143,9 +141,7 @@ module.exports.splitTheBill = splitTheBill;
  * @return {[number]}
  */
 function exp (base, exponent){
-	if (DataType.isUndefined(base) ||
-			DataType.isUndefined(exponent) ||
-			DataType.isNumber(base) === false ||
+	if (DataType.isNumber(base) === false ||
 			DataType.isNumber(exponent) === false)
 				return false;
 	return Math.pow(base, exponent);
@@ -158,7 +154,7 @@ module.exports.exp = exp;
  * @return {[type]}     [description]
  */
 function factorial (num){
-	if (DataType.isUndefined(num) || DataType.isNumber(num) === false) return false;
+	if (DataType.isNumber(num) === false) return false;
 	if (num === 0) return 1;
 	return num * factorial (--num);
 }
@@ -176,7 +172,7 @@ function fibRec (numReturns){
 // to show the number in every step
 // and then we show an array with all numbers
 function fibs (numReturns){
-	if (DataType.isUndefined(numReturns) || DataType.isNumber(numReturns) === false) return false;
+	if (DataType.isNumber(numReturns) === false) return false;
 	let arrayResult = [];
 	for (let i = 0; i < numReturns; i++) arrayResult.push(fibRec (i));
 	return arrayResult;
@@ -185,25 +181,62 @@ function fibs (numReturns){
 module.exports.fibs = fibs;
 
 
-//Zero Sum
-/*
+/**
+ * Which values in an array sum 0 and their position
+ * @param  {[array]} nums [description]
+ * @return {[array]}      [description]
+ */
 function zeroSum(nums) {
+	if (DataType.isArray(nums) === false || nums.length <= 1 ) return false;
 	let result = [];
 	for (i = 0; i <= nums.length;i++){
 		if (nums[i] > 0) {
 			for (z = 0; z <nums.length;z++){
 				if (nums[i] + nums[ z] === 0){
-					let value = "[" + i + "," + z + "]";
+					let value = [i,z];
 					result.push( value);
 				}
 			}
 		}
 	}
-	console.log(result);
+	return result;
 }
+module.exports.zeroSum = zeroSum;
+
+/**
+ * [isAnagram description]
+ * @return {Boolean} [description]
+ */
+function isAnagram (str1, str2) {
+	if (DataType.isString(str1) === false ||
+			DataType.isString(str2) === false)
+				return false;
+	let word1 = str1.split("").sort().join(""),
+			 word2 = str2.split("").sort().join("");
+	 return (word1 === word2) ? true :false;
+}
+module.exports.isAnagram = isAnagram;
 
 
-zeroSum([1, 5, 0, -5, 3, -1]) // => [[0, 5], [1, 3]]
-zeroSum([1, -1]) // => [[0, 1]]
-zeroSum([0, 4, 3, 5]) // => []
-*/
+function boxVolume(w,h,l) {
+	if (DataType.isNumber(w) === false ||
+			DataType.isNumber(h) === false ||
+			DataType.isNumber(l) === false)
+				return false;
+	let result = w*h*l/1000;
+	return parseFloat(result.toFixed(4));
+}
+module.exports.boxVolume = boxVolume;
+
+
+function intersect (rect1, rect2) {
+	if (DataType.isArray(rect1) === false ||
+			DataType.isArray(rect2) === false)
+				return false;
+	let x5 = Math.max(rect1[0][0], rect2[0][0]);
+	let y5 = Math.max(rect1[0][1], rect2[0][1]);
+	let x6 = Math.min(rect1[1][0], rect2[1][0]);
+	let y6 = Math.min(rect1[1][1], rect2[1][1]);
+	return [[x5,y5],[x6,y6]];
+}
+module.exports.intersect = intersect;

@@ -1,0 +1,15 @@
+{
+  "name": "jsday_7",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Miguel Perello",
+  "license": "ISC",
+  "dependencies": {
+    "data-type": "^0.1.3",
+    "tape": "^4.6.3"
+  }
+}

@@ -3,18 +3,27 @@ var test = require('tape');
 var tapSpec = require('tap-spec');
 test.createStream().pipe(tapSpec()).pipe(process.stdout);
 
-test('Restaurant', function (t) {
-  t.test('normal test', function (t) {
+var Dish = restaurant.Dish;
+var Ingredient = restaurant.Ingredient;
 
-  var cheese = restaurant.Ingredient('Cheese', 5);
-  var pepperoni = restaurant.Ingredient('pepperoni', 7);
-  var dough = restaurant.Ingredient('doug', 9);
-  var pizza = restaurant.Dish('Pizza', 35,  [cheese, pepperoni, dough]);
-console.log(dough);
-  //t.equal(pizza.cost(), 31, 'Check string');
-
+test('Ingredient Class', function (t) {
+  t.test('Class constructor', function (t) {
+    var cheese = new Ingredient('Cheese', 5);
+    var expectedCheese = {name: "Cheese", cost: 5};
+    t.deepEqual(cheese,expectedCheese, "Check 1");
     t.end();
   });
+});
 
+test('Dish Class', function (t) {
+  t.test('Class constructor', function (t) {
 
+    var cheese = new Ingredient('Cheese', 5);
+    var pepperoni = new Ingredient('pepperoni', 7);
+    var dough = new Ingredient('doug', 9);
+    var pizza = new Dish('Pizza', 35,  [cheese, dough, pepperoni]);
+
+    t.equal(pizza.cost(), 31, 'Check cost Dish');
+    t.end();
+  });
 });

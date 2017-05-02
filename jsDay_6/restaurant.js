@@ -29,6 +29,7 @@ function Dish (name, price, ingredients) {
 	this.name = name;
 	this.price = price;
 	this.ingredients = ingredients;
+
 	this.cost = function () {
 		var totalCost = 10;
 		for (var i = 0; i < this.ingredients.length; i++){
@@ -42,13 +43,21 @@ function Dish (name, price, ingredients) {
 		return profitValue;
 	}
 }
-module.exports.Dish = Dish;
+
 //Create class ingredients
 function Ingredient (name, cost) {
 	this.name = name;
 	this.cost = cost;
 }
+
 module.exports.Ingredient = Ingredient;
+module.exports.Dish = Dish;
+
+// module.exports = {
+// 	Ingredient: Ingredient,
+// 	Dish: Dish
+// };
+
 /*var cheese = new Ingredient('Cheese', 5);
 var pepperoni = new Ingredient('pepperoni', 7);
 var dough = new Ingredient('doug', 9);

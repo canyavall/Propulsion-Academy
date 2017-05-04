@@ -1,17 +1,21 @@
 import {Board} from './board.js';
 import {Level} from './level.js';
 import {Pacman} from './pacman.js';
+import {Monster} from './monster.js';
 
 export class Game {
   constructor() {
-    this.ctx = null;
+    //Initiate variables
     this.width = 300;
     this.height = 400;
+    this.ctx = this.prepareDOM();
     this.intervalId = 0
 
-    this.prepareDOM();
+    //Create objects
     this.board = new Board(this.ctx);
     this.pacman = new Pacman(this.ctx);
+    this.pinki = new Monster(this.ctx);
+    this.level = new Level(this.ctx);
   }
 
   /**
@@ -20,8 +24,10 @@ export class Game {
   play(){
     this.board.render();
     this.pacman.render();
+    this.pinki.render();
+    this.level.render();
     this.listeners();
-    this.intervalId = setInterval(this.resetCanvas.bind(this), 20);
+    this.intervalId = setInterval(this.resetCanvas.bind(this), 10);
   }
 
   /**
@@ -38,7 +44,7 @@ export class Game {
     window.document.body.appendChild(canvas);
 
     //Get canvas
-    this.ctx = canvas.getContext('2d');
+    return canvas.getContext('2d');
   }
 
   /**
@@ -46,8 +52,10 @@ export class Game {
    */
   resetCanvas(){
     this.board.render();
-    this.pacman.move();
+    this.level.render();
+    this.pacman.move(this.level);
     this.pacman.render();
+    this.pinki.render();
   }
 
   /**

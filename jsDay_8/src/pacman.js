@@ -1,7 +1,7 @@
 import {Mob} from './mob.js';
 export class Pacman extends Mob {
-  constructor(ctx) {
-    super(ctx);
+  constructor(ctx, random) {
+    super(ctx, random);
     this.position = [100,100];
   };
   /**

@@ -1,7 +1,7 @@
 import {Board} from './board.js';
 import {Level} from './level.js';
 import {Pacman} from './pacman.js';
-import {Monster} from './monster.js';
+import {Ghost} from './ghost.js';
 
 export class Game {
   constructor() {
@@ -13,8 +13,8 @@ export class Game {
 
     //Create objects
     this.board = new Board(this.ctx);
-    this.pacman = new Pacman(this.ctx);
-    this.pinki = new Monster(this.ctx);
+    this.pacman = new Pacman(this.ctx, false);
+    this.pinki = new Ghost(this.ctx, true);
     this.level = new Level(this.ctx);
   }
 
@@ -55,6 +55,7 @@ export class Game {
     this.level.render();
     this.pacman.move(this.level);
     this.pacman.render();
+    this.pinki.move(this.level);
     this.pinki.render();
   }
 

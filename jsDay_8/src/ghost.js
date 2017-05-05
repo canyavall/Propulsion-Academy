@@ -29,10 +29,10 @@ export class Ghost{
  */
   move(level){
     //prepare variables
-    let xPositionPlusRadius = this.position[0] + this.radius;
-    let xPositionMinusRadius = this.position[0] - this.radius;
-    let yPositionPlusRadius = this.position[1] + this.radius;
-    let yPositionMinusRadius = this.position[1] - this.radius;
+    let xPositionPlusRadius = this.position[0] + this.radius + 1;
+    let xPositionMinusRadius = this.position[0] - this.radius - 1;
+    let yPositionPlusRadius = this.position[1] + this.radius + 1;
+    let yPositionMinusRadius = this.position[1] - this.radius - 1;
     this.go = [true, true, true, true];
 
     //Check Collisions

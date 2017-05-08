@@ -25,7 +25,7 @@ public class Sorting {
 		Collections.sort(evenList);
 		Collections.reverse(evenList);
 		List<Double> fullList = new ArrayList<Double>(oddList);
-			fullList.addAll(evenList);
+		fullList.addAll(evenList);
 
 		//Return an array
 		Double[] arrayResult = new Double[fullList.size()];

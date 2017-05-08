@@ -1,8 +1,9 @@
 .metadata
 .recommenders
-.classpath
+/bin/
+
 .project
-bin
+.classpath
 .settings
 node_modules
 *.log

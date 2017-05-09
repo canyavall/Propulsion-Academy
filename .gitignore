@@ -7,3 +7,5 @@
 .settings
 node_modules
 *.log
+.gradle
+build

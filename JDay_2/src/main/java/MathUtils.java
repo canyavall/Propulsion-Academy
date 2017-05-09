@@ -6,7 +6,8 @@ public class MathUtils {
 	public static void main(String[] args) {
 		System.out.println("Let's calculate the square of an integer");
 		
-		//Ask for weigth
+		//Ask for weight
+		@SuppressWarnings("resource")
 		Scanner reader = new Scanner(System.in);
 					
 		int result = new MathUtils().squared(reader.nextInt());

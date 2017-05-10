@@ -16,19 +16,17 @@
 
 package service;
 
-import java.util.Scanner;
+public class GreetingClient {
 
-public class GreetingApp {
+	private final MessageService messageService;
 
-	public static void main(String[] args) {
-		MessageService messageService = new GermanMessageService();
+	public GreetingClient(MessageService messageService) {
+		this.messageService = messageService;
+	}
 
-		@SuppressWarnings("resource")
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("What's your name? Beziehungsweis, wie heisst du?");
-		String name = scanner.nextLine();
-
-		System.out.println(messageService.generateMessage(name));
+	public String greetUser(String name) {
+		String msg = this.messageService.generateMessage(name);
+		return msg.toUpperCase();
 	}
 
 }

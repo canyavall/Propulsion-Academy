@@ -16,19 +16,11 @@
 
 package service;
 
-import java.util.Scanner;
+public class StubMessageService implements MessageService {
 
-public class GreetingApp {
-
-	public static void main(String[] args) {
-		MessageService messageService = new GermanMessageService();
-
-		@SuppressWarnings("resource")
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("What's your name? Beziehungsweis, wie heisst du?");
-		String name = scanner.nextLine();
-
-		System.out.println(messageService.generateMessage(name));
+	@Override
+	public String generateMessage(String name) {
+		return "Hey!";
 	}
 
 }

@@ -5,18 +5,22 @@ import java.util.List;
 
 public class Person implements Animal {
 
-	private List<Pet> petList= new ArrayList<>(); //Contain pets
+	private final String name;
+	private final String text;	
+	private final List<Pet> petList= new ArrayList<>(); //Contain pets
 	
+	public Person(String name, String text){
+		this.name = name;
+		this.text = text;
+	}
 	@Override
 	public String speak() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.text;
 	}
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.name;
 	}
 
 	public void addList(Pet pet){

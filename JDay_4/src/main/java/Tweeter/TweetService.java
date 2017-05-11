@@ -33,11 +33,13 @@ public class TweetService {
 	}
 	
 	List<Tweet>  searchWord(String str){
+		
 		List<Tweet> tweetList = new ArrayList<Tweet>();
-		for (Map.Entry entry : database.entrySet()) {
-			String text = (String) entry.getValue();
+		
+		for (Tweet tweet : findAll()) {
+			String text = tweet.getText();
 			if (text.toLowerCase().contains(str.toLowerCase())){
-				tweetList.put(entry);
+				tweetList.add(tweet);
 			}
 		}
 		return tweetList;
@@ -45,8 +47,8 @@ public class TweetService {
 	}
 	
 	void printAll(){
-		for (Map.Entry entry : database.entrySet()) {
-		    System.out.println(entry.getKey() + ", " + entry.getValue());
+		for (Tweet entry : findAll()) {
+		    System.out.println(entry.getId() + ", " + entry.getText());
 		}
 	}
 

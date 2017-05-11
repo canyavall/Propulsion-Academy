@@ -1,11 +1,9 @@
 package ex3;
 
-public class Square implements Shape{
+public class Square extends Rectangle {
 
-	@Override
-	public int getArea() {
-		// TODO Auto-generated method stub
-		return 0;
+	public Square(double width) {
+		super(width, width);
 	}
 
 }

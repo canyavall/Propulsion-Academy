@@ -3,14 +3,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Bank {
+
+	private static final AtomicInteger idGenerator = new AtomicInteger();	
 	private Map<Integer, Customer> customers = new HashMap<>();
-	private Integer accountId = 0;
 	
 	public int createCustomer(String name){
-		this.accountId++;
-		Customer cust = new Customer(name, this.accountId);
+		Customer cust = new Customer(name, idGenerator.incrementAndGet());
 		customers.put(cust.getId(), cust);
 		return cust.getId();
 	}
@@ -25,5 +26,17 @@ public class Bank {
 	
 	public List<Customer> listofCustomers(){
 		return new ArrayList<Customer>(customers.values());		
+	}
+	
+	public List<Customer> negativebalance(){
+		List<Customer> custRes = new ArrayList();
+		for (Customer item : this.listofCustomers()) {		
+			Account acc = item.getAcc();
+		    if (acc.getBalance() < 0){
+		    	custRes.add(item);
+		    }
+		}
+		return custRes;
+		
 	}
 }

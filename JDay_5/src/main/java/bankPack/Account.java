@@ -14,9 +14,7 @@ public class Account {
 	}
 	
 	public void debit(double amount){
-		if (this.balance - amount > 0){
 			this.balance -= amount;
-		}
 	}
 
 	public String getNr() {

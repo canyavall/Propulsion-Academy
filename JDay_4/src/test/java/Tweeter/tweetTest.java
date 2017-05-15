@@ -37,5 +37,7 @@ public class tweetTest {
 		
 		//Check text by id
 		assertEquals("I want to learn more", tweetsv.findById(t5.getId()).getText());
+		
+		
 	}
 }

@@ -1,20 +1,24 @@
 package linkedListExercise;
 
-public class Node {
-	private String data;
-	private int next;
+public class Node<T> {
+	private T data;
+	private Node<T> next;
 	
-	public Node (String data, int next){
+	public Node (T data){
 		this.data = data;
-		this.next = next;
 	}
 
-	public String getData() {
+	public T getData() {
 		return data;
 	}
 
-	public int getNext() {
+	public Node<T> getNext() {
 		return next;
 	}
+
+	public void setNext(Node<T> next) {
+		this.next = next;
+	}
+	
 	
 }

@@ -32,18 +32,18 @@ public class Stack<T> {
 	}
 	
 	public void flip(){
+		if (this.head == null)	return;
+
 		int controller = 0;
 		Node<T> newNode = null;
 		Node<T> nextNode = this.head.getNext();
-		Node<T> currentNode = this.head;
 		while(controller < this.size){
-			currentNode.setNext(newNode);			
-			newNode = currentNode;
-			currentNode = nextNode;
-			if (currentNode.getNext() != null)nextNode = currentNode.getNext();
+			this.head.setNext(newNode);			
+			newNode = this.head;
+			this.head = nextNode;
+			if (this.head.getNext() != null) nextNode = this.head.getNext();
 			controller++;
 		}
-		this.head = currentNode;
 	}
 	
 	public int size(){		
@@ -64,8 +64,7 @@ public class Stack<T> {
 			if (nodeCheck.getNext() != null) str += ", ";
 			nodeCheck = nodeCheck.getNext();
 		}
-		return str;
-		
+		return str;		
 	}
 	
 }

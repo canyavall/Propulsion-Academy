@@ -1,4 +1,4 @@
-package collectionsExercise;
+package methodRef;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,17 +37,17 @@ public class PersonDemo {
 			peopleMap.put("p4", person1);
 			
 			//List printout
-			peopleList.forEach(person->System.out.println(person.getName()));
+			peopleList.forEach(System.out::println);
 			
 			System.out.println("***************************************");
 			
 			//set printout
-			peopleSet.forEach(person->System.out.println(person.getName()));
+			peopleSet.forEach(System.out::println);
 			
 			System.out.println("***************************************");
 			
 			//map printout
-			peopleMap.forEach((str, person)->System.out.println(str + " - " + person.getName()));
+			peopleMap.entrySet().stream().map(Map.Entry::getValue).forEach(System.out::println);
 			
 		}
 }

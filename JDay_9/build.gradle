@@ -3,9 +3,8 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'maven'
 
-
 jar {
-	baseName = 'JDay_6'
+	baseName = 'JDay_9'
 	version = '1.0.0-SNAPSHOT'
 }
 

@@ -6,12 +6,8 @@ public class Stack<T> {
 	
 	public void push(T obj){
 		Node<T> node = new Node<>(obj);
-		if (this.head == null){
-			this.head = node;
-		}else{
-			node.setNext(this.head);
-			this.head = node;
-		}
+		if (this.head != null) node.setNext(this.head);
+		this.head = node;
 		this.size++;
 	}
 	
@@ -22,34 +18,32 @@ public class Stack<T> {
 	}
 	
 	public T peek(){
-		return this.head.getData();		
+		return (this.head == null) ? null : this.head.getData();
 	}
 	
 	public boolean contains(String str){
-		int controller = 1;
 		Node<T> nodeCheck = this.head;
-		while(controller <= this.size){			
+		while(nodeCheck != null){			
 			if (nodeCheck.getData().equals(str)) return true;
 			nodeCheck = nodeCheck.getNext();
-			controller++;
 		}
 		return false;
 		
 	}
 	
 	public void flip(){
-		int controller = 1;
-		Node<T> previousNode = null;
-		Node<T> nextNode = null;
-		Node<T> nodeCheck = this.head;
-		while(controller <= this.size){
-			nextNode = nodeCheck.getNext();
-			nodeCheck.setNext(previousNode);
-			previousNode = nodeCheck;
-			nodeCheck = nextNode;			
+		int controller = 0;
+		Node<T> newNode = null;
+		Node<T> nextNode = this.head.getNext();
+		Node<T> currentNode = this.head;
+		while(controller < this.size){
+			currentNode.setNext(newNode);			
+			newNode = currentNode;
+			currentNode = nextNode;
+			if (currentNode.getNext() != null)nextNode = currentNode.getNext();
 			controller++;
 		}
-		this.head = nodeCheck;
+		this.head = currentNode;
 	}
 	
 	public int size(){		
@@ -64,13 +58,11 @@ public class Stack<T> {
 	
 	public String toString(){
 		String str = "";
-		int controller = 1;
 		Node<T> nodeCheck = this.head;
-		while(controller <= this.size){
+		while(nodeCheck != null){
 			str += nodeCheck.getData();
-			if (controller < this.size) str += ", ";
+			if (nodeCheck.getNext() != null) str += ", ";
 			nodeCheck = nodeCheck.getNext();
-			controller++;
 		}
 		return str;
 		

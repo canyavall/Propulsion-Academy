@@ -21,10 +21,10 @@ public class Stack<T> {
 		return (this.head == null) ? null : this.head.getData();
 	}
 	
-	public boolean contains(String str){
+	public boolean contains(T obj){
 		Node<T> nodeCheck = this.head;
 		while(nodeCheck != null){			
-			if (nodeCheck.getData().equals(str)) return true;
+			if (nodeCheck.getData().equals(obj)) return true;
 			nodeCheck = nodeCheck.getNext();
 		}
 		return false;

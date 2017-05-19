@@ -1,46 +1,24 @@
 package service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import domain.Tweet;
-import repository.InMemoryTweetRepository;
 
-public class TweetService {
+public interface TweetService {
 	
-	private InMemoryTweetRepository tweetRep = new InMemoryTweetRepository();
-	private int size;
-
-	public void saveTweet(Tweet tweet){
-		tweetRep.save(tweet, tweet.getId());
-		size++;
-	}
+	public void saveTweet(Tweet tweet);
 	
-	public void deleteTweet(String id){
-		tweetRep.deleteById(id);
-		size--;
-	}
+	public void deleteTweet(String id);
 	
-	public Tweet findTweet(String id){
-		return tweetRep.findById(id);
-	}
+	public Tweet findTweet(String id);
 	
-	public List<Tweet> findAllTweets(){
-		return tweetRep.findAll();
-	}
+	public List<Tweet> findAllTweets();
 	
-	public List<Tweet> findAllTweetsByUsername(String username){
-		List <Tweet> tweets = findAllTweets();
-		return tweets.stream().filter(t -> t.getAuthor().getUsername().equals(username)).collect(Collectors.toList());
-	}
+	public List<Tweet> findAllTweetsByUsername(String username);
 	
-	public List<Tweet> findAllTweetsByUserId(String userId){
-		return findAllTweets().stream().filter(t -> t.getAuthor().getId().equals(userId)).collect(Collectors.toList());		
-	}
-
-	public int getSize() {
-		return size;
-	}
+	public List<Tweet> findAllTweetsByUserId(String userId);
 	
+	public List<Tweet> findByHashtag(String hashtag);
 	
+	public int getSize();
 }

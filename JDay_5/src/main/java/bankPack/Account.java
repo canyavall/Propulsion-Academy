@@ -1,8 +1,10 @@
 package bankPack;
 
+import java.util.UUID;
+
 public class Account {
 
-	private final String nr = java.util.UUID.randomUUID().toString();
+	private final String nr = UUID.randomUUID().toString();
 	private double balance = 0;
 	
 	public double getBalance() {

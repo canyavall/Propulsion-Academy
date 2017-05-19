@@ -1,0 +1,47 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'maven'
+
+
+jar {
+	baseName = 'JDay_10'
+	version = '1.0.0-SNAPSHOT'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+ext.assertJVersion  = '3.5.2'
+ext.junitVersion    = '4.12'
+ext.log4jVersion    = '2.8.2'
+ext.mockitoJVersion = '2.7.0'
+ext.lombokVersion   = '1.16.16'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compileOnly "org.projectlombok:lombok:1.16.16"
+	
+	compile("org.apache.logging.log4j:log4j-api:${log4jVersion}")
+	compile("org.apache.logging.log4j:log4j-core:${log4jVersion}")
+
+	testCompile("junit:junit:${junitVersion}")
+	testCompile("org.assertj:assertj-core:${assertJVersion}")
+	testCompile("org.mockito:mockito-core:${mockitoJVersion}")
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '3.5'
+}
+
+task showMeCache {
+  doLast {
+    println('compileOnly dependencies:')
+    configurations.compileOnly.each { println it }
+    println('testCompile dependencies:')
+    configurations.testCompile.each { println it }
+  }
+}

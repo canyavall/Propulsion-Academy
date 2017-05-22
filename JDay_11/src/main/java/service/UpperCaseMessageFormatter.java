@@ -1,6 +1,6 @@
 package service;
 
-class UpperCaseMessageFormatter implements MessageFormatter {
+public class UpperCaseMessageFormatter implements MessageFormatter {
 
 	@Override
 	public String format(String message) {

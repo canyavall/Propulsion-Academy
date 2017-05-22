@@ -1,6 +1,6 @@
 package service;
 
-class ConsoleMessageFormatter implements MessageFormatter {
+public class ConsoleMessageFormatter implements MessageFormatter {
 
 	// Singleton: only one instance in the application.
 	// public static final MessageFormatter INSTANCE = new ConsoleMessageFormatter();

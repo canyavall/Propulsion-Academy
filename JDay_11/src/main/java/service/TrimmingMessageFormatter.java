@@ -1,6 +1,6 @@
 package service;
 
-class TrimmingMessageFormatter implements MessageFormatter {
+public class TrimmingMessageFormatter implements MessageFormatter {
 
 	@Override
 	public String format(String message) {

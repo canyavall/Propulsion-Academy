@@ -1,6 +1,6 @@
 package service;
 
-class HtmlMessageFormatter implements MessageFormatter {
+public class HtmlMessageFormatter implements MessageFormatter {
 
 	@Override
 	public String format(String message) {

@@ -1,10 +1,6 @@
 package service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.Arrays;
-import java.util.List;
-
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -24,13 +20,13 @@ public class MessageServiceTests {
 	@Test
 	public void htmlFormatter() {
 		//Don't use this way!!!!!!
-		assertThat(context.getBean("HtmlMsgForm", MessageFormatter.class).format("Hello, World")).isEqualTo("<strong>Hello, World</strong>");
+		assertThat(context.getBean(HtmlMessageFormatter.class).format("Hello, World")).isEqualTo("<strong>Hello, World</strong>");
 	}
 
 	@Test
 	public void compositeFormatter() {		
-		//MessageService service = context.getBean(MessageService.class);
-		MessageService service = context.getBean("MsgService", MessageService.class);
+		MessageService service = context.getBean(MessageService.class);
+		//MessageService service = context.getBean("MsgService", MessageService.class);
 		
 		assertThat(service.generateMessage()).isEqualTo("<strong>HELLO, WORLD</strong>");
 	}

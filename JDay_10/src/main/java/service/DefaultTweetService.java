@@ -60,7 +60,11 @@ public class DefaultTweetService implements TweetService{
 	
 	@Override
 	public List<Tweet> findByHashtag(String hashtag) {
-		return findAllTweets().stream().filter(t -> t.getText().toLowerCase().contains(hashtag.toLowerCase())).collect(Collectors.toList());
+		return findAllTweets().stream()
+					.filter(t -> t.getText()
+							.toLowerCase()
+							.contains(hashtag.toLowerCase()))
+					.collect(Collectors.toList());
 	}
 
 	public int getSize() {

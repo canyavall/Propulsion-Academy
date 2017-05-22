@@ -12,10 +12,12 @@ public class predicateDemo{
 		Predicate<String> containsLetter = pswd -> pswd.matches(".*[A-Za-z]+.*");
 		Predicate<String> containsDigit = pswd -> pswd.matches(".*\\d+.*");
 		
-		Predicate<String> isvalid = isNotNull.and(isLongEnough.and(containsLetter).and(containsDigit));
+		Predicate<String> isvalid = isNotNull.and(isLongEnough).and(containsLetter).and(containsDigit);
 		
-		System.out.println(isvalid.test("12345678a "));
+		System.out.println(isvalid.test("adfasdfa123"));
 
-		Stream.of("TEST", "    ", "", "TEST12345", "12345678a ").filter(isvalid).forEach(System.out::println);
+		Stream.of("TEST", "    ", "", "TEST12345", "12345678a ")
+			.filter(isvalid)
+			.forEach(System.out::println);
 	}
 }

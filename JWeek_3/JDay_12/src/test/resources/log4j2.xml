@@ -9,7 +9,7 @@
 		</File>
 	</Appenders>
 	<Loggers>
-		<Logger name="org.springframework" level="warn" />
+		<Logger name="org.springframework" level="WARN" />
 		<Root level="ERROR">
 			<AppenderRef ref="Console" />
 			<AppenderRef ref="File" />

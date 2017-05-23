@@ -4,7 +4,7 @@ apply plugin: 'idea'
 apply plugin: 'maven'
 
 jar {
-	baseName = 'JDay12_mail'
+	baseName = 'JDay12_bank'
 	version = '1.0.0-SNAPSHOT'
 }
 

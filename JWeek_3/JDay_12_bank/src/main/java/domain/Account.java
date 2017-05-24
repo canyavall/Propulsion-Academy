@@ -1,4 +1,4 @@
-package bankPack;
+package domain;
 
 public class Account {
 

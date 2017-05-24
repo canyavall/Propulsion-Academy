@@ -1,4 +1,4 @@
-package bankPack;
+package service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -6,7 +6,13 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Bank {
+import org.springframework.stereotype.Service;
+
+import domain.Account;
+import domain.Customer;
+
+@Service
+public class BankService {
 
 	private static final AtomicInteger idGenerator = new AtomicInteger();
 	private Map<Integer, Customer> customers = new HashMap<>();

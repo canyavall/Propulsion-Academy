@@ -1,12 +1,32 @@
-package bankPack;
+package app;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import config.BankConfig;
+import domain.Account;
+import domain.Customer;
+import service.BankService;
+
+@RunWith(SpringRunner.class)
+@ContextConfiguration(classes= {BankConfig.class, })
 public class bankApp {
+
+	@Autowired
+	static BankService bank;
+	
+	@Autowired
+	JavaMailSender mailSender;
+	
 	public static void main(String[] args) {
-		Bank bank = new Bank();
+		//BankService bank = new BankService();
 		System.out.println("WELCOME TO PIXIE BANK");
 		Scanner reader = new Scanner(System.in);
 		System.out.println("PLease, select an option");
@@ -43,7 +63,7 @@ public class bankApp {
 		System.out.println("Thank you very much for using Pixie services.");
 	}
 
-	private static void listOfCustomers(Bank bank) {
+	private static void listOfCustomers(BankService bank) {
 		System.out.println("ID:NAME");
 		List<Customer> custList = bank.listofCustomers();
 		for (Customer item : custList) {					
@@ -51,7 +71,7 @@ public class bankApp {
 		}
 	}
 
-	private static void debitToCustomer(Bank bank, Scanner reader) {
+	private static void debitToCustomer(BankService bank, Scanner reader) {
 		System.out.println("Please, introduce the id of the customer ");
 		Integer customerId = reader.nextInt();
 		Optional<Customer> cust = bank.getCustomerById(customerId);
@@ -65,7 +85,7 @@ public class bankApp {
 		System.out.println("Customer with id " + cust.get().getName() + " has " + acc.getBalance() + "CHF");
 	}
 
-	private static void creditToCustomer(Bank bank, Scanner reader) {
+	private static void creditToCustomer(BankService bank, Scanner reader) {
 		System.out.println("Please, introduce the id of the customer ");
 		Integer customerId = reader.nextInt();
 		Optional<Customer> cust = bank.getCustomerById(customerId);
@@ -78,7 +98,7 @@ public class bankApp {
 		System.out.println("Customer with id " + cust.get().getName() + " has " + acc.getBalance() + "CHF");
 	}
 
-	private static void deleteCustomer(Bank bank, Scanner reader) {
+	private static void deleteCustomer(BankService bank, Scanner reader) {
 		System.out.println("Please, introduce the id of the customer you want to delete");
 		Integer customerId = reader.nextInt();
 		reader.nextLine();
@@ -86,7 +106,7 @@ public class bankApp {
 		System.out.println("Customer with id " + customerId + " has been deleted");
 	}
 
-	private static void findCustomerById(Bank bank, Scanner reader) {
+	private static void findCustomerById(BankService bank, Scanner reader) {
 		System.out.println("Please, introduce the id of the new customer");
 		int customerId = reader.nextInt();
 		reader.nextLine();
@@ -94,14 +114,14 @@ public class bankApp {
 		System.out.println(cust.get().toString());
 	}
 
-	private static void createCustomer(Bank bank, Scanner reader) {
+	private static void createCustomer(BankService bank, Scanner reader) {
 		System.out.println("Please, introduce the name of the new customer");
 		String name = reader.next();
 		bank.createCustomer(name);
 		System.out.println("Customer " + name + " has been created");
 	}
 	
-	private static void negativeBalance(Bank bank) {
+	private static void negativeBalance(BankService bank) {
 		System.out.println("ID:NAME");
 		List<Customer> custList = bank.negativebalance();
 		for (Customer item : custList) {					

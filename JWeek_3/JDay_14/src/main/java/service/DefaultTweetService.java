@@ -16,6 +16,7 @@ import repository.TweetRepository;
 
 @Service
 public class DefaultTweetService implements TweetService{
+	
 	private static final Logger logger = LogManager.getLogger(DefaultTweetService.class);
 	private final TweetRepository tweetRep;
 	private final JavaMailSender mailSender;

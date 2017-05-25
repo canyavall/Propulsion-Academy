@@ -3,37 +3,31 @@ package app;
 import java.util.List;
 import java.util.Scanner;
 
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import config.DataAccessConfig;
-import config.ServiceConfig;
+import config.TweeterAppConfig;
 import domain.Tweet;
 import domain.User;
 import service.TweetService;
 import service.UserService;
 
-@RunWith(SpringRunner.class)
-@ContextConfiguration(classes={ServiceConfig.class, DataAccessConfig.class})
 public class TweeterApp {
 	
-//	@Autowired
-//	TweetRepository tweetRepository;
-//	
-//	@Autowired
-//	UserRepository userRepository;
-	
-	@Autowired
-	static TweetService tweetService;
-	
-	@Autowired
-	static UserService userService;
-	
+
+	private static TweetService tweetService;
+	private static UserService userService;	
 	private static final Scanner reader = new Scanner(System.in);
 
 	public static void main(String[] args) {
+		
+		@SuppressWarnings("resource")
+		ApplicationContext context = new AnnotationConfigApplicationContext(TweeterAppConfig.class);
+
+		userService = context.getBean(UserService.class);
+		tweetService = context.getBean(TweetService.class);
+		
+		
 		System.out.println("Welcome to Tweeter");
 		@SuppressWarnings("resource")
 		Scanner reader = new Scanner(System.in);

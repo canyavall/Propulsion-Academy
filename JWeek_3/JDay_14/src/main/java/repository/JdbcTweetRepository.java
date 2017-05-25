@@ -30,11 +30,6 @@ public class JdbcTweetRepository implements TweetRepository{
 
 	@Override
 	public void save(Tweet tweet) {
-//		Map<String, Object> parameters = new HashMap<String, Object>(2);
-//        parameters.put("author", tweet.getAuthor());
-//        parameters.put("text", tweet.getText());
-//        Number newId = insertTweet.executeAndReturnKey(parameters);
-//        tweet.setId(newId.intValue());
 		String sql =" Insert into tweet (author_id, text) values (?,?)";
 		db.update(sql, tweet.getAuthor(), tweet.getText());		
 	}

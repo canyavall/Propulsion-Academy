@@ -27,7 +27,7 @@ public class JdbcUserRepository implements UserRepository{
 
 	@Override
 	public void save(User user) {
-		String sql =" Insert into tweet (name, surname, email, username, password) values (?,?)";
+		String sql =" Insert into user (name, surname, email, username, password) values (?,?,?,?,?)";
 		db.update(sql, user.getName(), user.getSurname(), user.getEmail(), user.getUsername(), user.getPassword());
 	}
 

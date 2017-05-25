@@ -25,13 +25,13 @@ public class DefaultUserService implements UserService{
 
 	@Override
 	public boolean registerNewUser(User user){		
-		if (checkPassword(user.getPassword()) && checkUsernameDuplicate(user.getUsername())){
+//		if (checkPassword(user.getPassword()) && checkUsernameDuplicate(user.getUsername())){
 			logger.trace("Registered user with id " + user.getId());
 			userRep.save(user);
 			return true;
-		}
-		logger.trace("Registered user with username " + user.getUsername() + " FAILED!");
-		return false;			
+//		}
+//		logger.trace("Registered user with username " + user.getUsername() + " FAILED!");
+//		return false;			
 	}
 	
 	@Override

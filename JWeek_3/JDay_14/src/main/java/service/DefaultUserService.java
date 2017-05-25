@@ -8,8 +8,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import repository.UserRepository;
 import domain.User;
+import repository.UserRepository;
 
 @Service
 public class DefaultUserService implements UserService{
@@ -48,13 +48,13 @@ public class DefaultUserService implements UserService{
 	
 	@Override
 	public List<User> findAllUsers(){
-		logger.info("Requested find all users");
+		logger.trace("Requested find all users");
 		return userRep.findAll();
 	}
 
 	@Override
 	public User findUserByUsername(String username){
-		logger.info("Requested find user by username" + username);
+		logger.trace("Requested find user by username" + username);
 		return userRep.findByUsername(username);
 	}
 
@@ -71,4 +71,6 @@ public class DefaultUserService implements UserService{
 		if (findUserByUsername(username) == null) return true;		
 		return false;
 	}
+
+
 }

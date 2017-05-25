@@ -1,21 +1,17 @@
 package app;
 
+import java.util.List;
 import java.util.Scanner;
 
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import config.DataAccessConfig;
-import config.RepositoryConfig;
 import config.ServiceConfig;
 import domain.Tweet;
 import domain.User;
-import repository.JdbcUserRepository;
-import repository.TweetRepository;
-import repository.UserRepository;
 import service.TweetService;
 import service.UserService;
 
@@ -23,16 +19,23 @@ import service.UserService;
 @ContextConfiguration(classes={ServiceConfig.class, DataAccessConfig.class})
 public class TweeterApp {
 	
-	@Autowired
-	TweetService tweetService;
+//	@Autowired
+//	TweetRepository tweetRepository;
+//	
+//	@Autowired
+//	UserRepository userRepository;
 	
 	@Autowired
-	UserService userService;
+	static TweetService tweetService;
+	
+	@Autowired
+	static UserService userService;
 	
 	private static final Scanner reader = new Scanner(System.in);
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to Tweeter");
+		@SuppressWarnings("resource")
 		Scanner reader = new Scanner(System.in);
 		System.out.println("PLease, select an option");
 		
@@ -100,7 +103,7 @@ public class TweeterApp {
 	// =========================================================================
 
 	private static void printTweet(Tweet tweet) {
-		User author = userService.find ;
+		User author = userService.findUserById(tweet.getAuthor()) ;
 		System.out.printf("%s%n\tOn %s, @%s tweeted: %s%n", tweet.getId(), author.getUsername(),
 			tweet.getText());
 	}
@@ -108,10 +111,10 @@ public class TweeterApp {
 	private static void printUser(User user) {
 		System.out.println("@" + user.getUsername());
 		System.out.println("  ID:            " + user.getId());
-		System.out.println("  Name:          " + user.getFirstName() + " " + user.getLastName());
-		System.out.println("  Member since:  " + user.getDateCreated().toLocalDate());
+		System.out.println("  Name:          " + user.getName() + " " + user.getSurname());
 		System.out.println("  Tweets:        ");
-		user.getTweets().forEach(TwitterApp::printTweet);
+		List<Tweet> tweets = tweetService.findAllTweetsByUserId(user.getId());
+		tweets.forEach(TweeterApp::printTweet);
 	}
 
 	private static void findAllUsers() {
@@ -123,7 +126,7 @@ public class TweeterApp {
 			System.out.println("No Tweeters!");
 		}
 		else {
-			users.forEach(TwitterApp::printUser);
+			users.forEach(TweeterApp::printUser);
 		}
 	}
 
@@ -131,19 +134,19 @@ public class TweeterApp {
 		banner("Register New User");
 
 		prompt("First Name");
-		String firstName = scanner.nextLine();
+		String firstName = reader.nextLine();
 
 		prompt("Last Name");
-		String lastName = scanner.nextLine();
+		String lastName = reader.nextLine();
 
 		prompt("Email Address");
-		String email = scanner.nextLine();
+		String email = reader.nextLine();
 
 		prompt("Username");
-		String username = scanner.nextLine();
+		String username = reader.nextLine();
 
 		prompt("Password");
-		String password = scanner.nextLine();
+		String password = reader.nextLine();
 
 		User user = new User(firstName, lastName, email, username, password);
 		userService.registerNewUser(user);
@@ -153,7 +156,7 @@ public class TweeterApp {
 		banner("Find User By ID");
 
 		prompt("User ID");
-		String id = scanner.nextLine();
+		int id = reader.nextInt();
 
 		System.out.println();
 		User user = userService.findUserById(id);
@@ -169,7 +172,7 @@ public class TweeterApp {
 		banner("Find User By Username");
 
 		prompt("User Username");
-		String username = scanner.nextLine();
+		String username = reader.nextLine();
 
 		System.out.println();
 		User user = userService.findUserByUsername(username);
@@ -185,7 +188,7 @@ public class TweeterApp {
 		banner("Delete User");
 
 		prompt("User ID");
-		String id = scanner.nextLine();
+		int id = reader.nextInt();
 
 		userService.deleteUser(id);
 
@@ -200,7 +203,7 @@ public class TweeterApp {
 		banner("New Tweet");
 
 		prompt("User ID");
-		String id = scanner.nextLine();
+		int id = reader.nextInt();
 		User author = userService.findUserById(id);
 
 		if (author == null) {
@@ -208,9 +211,8 @@ public class TweeterApp {
 		}
 		else {
 			prompt("Tweet");
-			String text = scanner.nextLine();
-			Tweet tweet = new Tweet(author, text);
-			author.addTweet(tweet);
+			String text = reader.nextLine();
+			Tweet tweet = new Tweet(author.getId(), text);
 			tweetService.saveTweet(tweet);
 
 			printUser(author);
@@ -221,14 +223,10 @@ public class TweeterApp {
 		banner("Delete Tweet");
 
 		prompt("Tweet ID");
-		String id = scanner.nextLine();
+		int id = reader.nextInt();
 
 		tweetService.deleteTweet(id);
 
-		// We assume the tweet got deleted, but we don't
-		// actually know if the operation succeeded.
-		// For example, if there is no such tweet, the
-		// TweetService doesn't inform us of that. :(
 		System.out.println("Deleted tweet with ID: " + id);
 	}
 
@@ -236,7 +234,7 @@ public class TweeterApp {
 		banner("Find Tweet");
 
 		prompt("Tweet ID");
-		String id = scanner.nextLine();
+		int id = reader.nextInt();
 
 		System.out.println();
 		Tweet tweet = tweetService.findTweet(id);
@@ -257,7 +255,7 @@ public class TweeterApp {
 			System.out.println("No Tweets!");
 		}
 		else {
-			tweets.forEach(TwitterApp::printTweet);
+			tweets.forEach(TweeterApp::printTweet);
 		}
 	}
 
@@ -266,14 +264,14 @@ public class TweeterApp {
 		System.out.println();
 
 		prompt("User ID");
-		String id = scanner.nextLine();
+		int id = reader.nextInt();
 
 		List<Tweet> tweets = tweetService.findAllTweetsByUserId(id);
 		if (tweets.isEmpty()) {
 			System.out.println("No tweets for user with ID: " + id);
 		}
 		else {
-			tweets.forEach(TwitterApp::printTweet);
+			tweets.forEach(TweeterApp::printTweet);
 		}
 	}
 
@@ -282,15 +280,20 @@ public class TweeterApp {
 		System.out.println();
 
 		prompt("Username");
-		String username = scanner.nextLine();
+		String username = reader.nextLine();
+		User user = userService.findUserByUsername(username);
 
-		List<Tweet> tweets = tweetService.findAllTweetsByUsername(username);
+		List<Tweet> tweets = tweetService.findAllTweetsByUserId(user.getId());
 		if (tweets.isEmpty()) {
 			System.out.println("No tweets for @" + username);
 		}
 		else {
-			tweets.forEach(TwitterApp::printTweet);
+			tweets.forEach(TweeterApp::printTweet);
 		}
+	}
+	
+	private static void prompt(String label) {
+		System.out.printf("%nEnter %s: ", label);
 	}
 
 	private static void printAll (){
@@ -307,6 +310,7 @@ public class TweeterApp {
 		System.out.println("10- Find all tweets by user id");
 		System.out.println("11- Find all tweets by username");		
 	}
+	
 	private static void banner(String header) {
 		System.out.println();
 		System.out.println("=================================================");

@@ -7,7 +7,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import domain.Tweet;
 
-public class TweetMapper implements RowMapper<Tweet> {
+class TweetMapper implements RowMapper<Tweet> {
 
 	@Override
 	public Tweet mapRow(ResultSet rs, int rowNum) throws SQLException {

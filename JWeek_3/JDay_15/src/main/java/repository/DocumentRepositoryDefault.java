@@ -3,23 +3,33 @@ package repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.stereotype.Repository;
 
 import domain.Document;
 
+@Repository
 public class DocumentRepositoryDefault implements DocumentRepository{
 
 	private final JdbcTemplate db;
+	private SimpleJdbcInsert insertDocument;
 	
 	private final DocumentMapper docMapper = new DocumentMapper();
 	
 	@Autowired
 	public DocumentRepositoryDefault(JdbcTemplate db) {
 		this.db = db;
+		this.insertDocument = new SimpleJdbcInsert(db)
+				.withTableName("document")
+				.usingGeneratedKeyColumns("id")
+				.usingColumns("name", "author");//Defines the columns we are going to use
 	}
 
 	@Override
@@ -29,8 +39,13 @@ public class DocumentRepositoryDefault implements DocumentRepository{
 
 	@Override
 	public void save(Document doc) {
-		db.update("Insert into document (name, author) values (?,?)", doc.getName(), doc.getAuthor());
-		
+		Map<String, Object> parameters = new HashMap<>(2);
+		parameters.put("name", doc.getName());
+		parameters.put("author", doc.getAuthor());
+		Number newId = insertDocument.executeAndReturnKey(parameters);
+		Document docTemp = findById(newId.intValue());
+		doc.setId(docTemp.getId());
+		doc.setCreationDate(docTemp.getCreationDate());
 	}
 
 	@Override

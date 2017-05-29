@@ -12,6 +12,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.jdbc.JdbcTestUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 import config.TestDataAccessConfig;
 import domain.Book;
@@ -20,7 +21,7 @@ import domain.Book;
 @ContextConfiguration(classes = { TestDataAccessConfig.class, RepositoryConfig.class })
 @ActiveProfiles("dev")
 @Sql("/test-data.sql")
-@Sql(statements = "delete from book", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
+@Transactional
 public class BookRepositoryTests {
 
 	/**
@@ -49,11 +50,9 @@ public class BookRepositoryTests {
 	}
 
 	@Test
-	@Sql(statements = "delete from book")
 	public void count() {
-		assertNumBooks(0);
-
-		assertThat(bookRepository.count()).isEqualTo(0);
+		assertNumBooks(NUM_BOOKS);
+		assertThat(bookRepository.count()).isEqualTo(NUM_BOOKS);
 	}
 
 	@Test

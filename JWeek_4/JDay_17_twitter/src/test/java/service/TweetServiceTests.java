@@ -40,7 +40,7 @@ import repository.TweetRepository;
  * Integration tests for the {@link DefaultTweetService}.
  */
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = { ServiceConfig.class, TestRepositoryConfig.class, TestMailConfig.class })
+@ContextConfiguration(classes = { DefaultTweetService.class, TestRepositoryConfig.class, TestMailConfig.class })
 @ActiveProfiles("dev")
 public class TweetServiceTests {
 

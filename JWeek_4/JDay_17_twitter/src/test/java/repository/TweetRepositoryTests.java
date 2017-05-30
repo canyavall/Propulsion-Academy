@@ -21,31 +21,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
-import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import config.RepositoryConfig;
-import config.TestDataAccessConfig;
 import domain.Tweet;
-import org.junit.runners.MethodSorters;
 
 /**
  * Integration tests for the {@link JdbcTweetRepository}, running
  * against the <em>production</em> database.
  */
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = { TestDataAccessConfig.class, RepositoryConfig.class })
-@ActiveProfiles("dev")
+@SpringBootTest(webEnvironment = WebEnvironment.NONE)
 @Transactional
-@Sql("/test-data.sql")
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TweetRepositoryTests {
 
 	private int NUM_ROWS = 5;

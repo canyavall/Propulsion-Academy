@@ -2,6 +2,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'maven'
+apply plugin: 'org.springframework.boot'
 
 jar {
 	baseName = 'JDay12_mail'
@@ -21,13 +22,16 @@ ext.mailApiVersion = '1.5.6'
 ext.mailVersion    = '1.4.7'
 ext.slf4jVersion   = '1.7.23'
 ext.wiserVersion   = "3.1.7"
+ext.
 
 repositories {
 	mavenCentral()
+	jcenter()
 }
 
 dependencies {
 	compileOnly("org.projectlombok:lombok:${lombokVersion}")
+	compile("org.springframework.boot:spring-boot-starter-web")
 	compile("org.springframework:spring-context:${springVersion}")
 	compile("org.springframework:spring-context-support:${springVersion}")
 	compile("org.apache.logging.log4j:log4j-api:${log4jVersion}")
@@ -38,6 +42,7 @@ dependencies {
     runtime("org.slf4j:slf4j-api:${slf4jVersion}")
     runtime("org.apache.logging.log4j:log4j-slf4j-impl:${log4jVersion}")
 
+	testCompile("org.springframework.boot:spring-boot-starter-test")
 	testCompile("junit:junit:${junitVersion}")
 	testCompile("org.assertj:assertj-core:${assertJVersion}")
 	testCompile("org.mockito:mockito-core:${mockitoVersion}")

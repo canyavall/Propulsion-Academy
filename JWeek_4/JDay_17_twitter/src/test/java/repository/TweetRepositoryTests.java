@@ -31,10 +31,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import domain.Tweet;
 
-/**
- * Integration tests for the {@link JdbcTweetRepository}, running
- * against the <em>production</em> database.
- */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
 @Transactional

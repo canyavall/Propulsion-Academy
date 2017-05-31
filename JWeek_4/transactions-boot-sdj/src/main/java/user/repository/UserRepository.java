@@ -18,8 +18,8 @@ package user.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import user.domain.User;
@@ -27,12 +27,11 @@ import user.domain.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-	User findById(Long id);
+	User findByFirstNameAndLastName(String firstName, String lastName, Pageable pageable);
 
-	User findByFirstNameAndLastName(String firstName, String lastName);
-
-	User findFirstByLastNameOrderByFirstName(String lastName);
+	User findFirstByLastNameOrderByFirstName(String lastName, Pageable pageable);
 	
-	List<User> findFirst10ByLastNameOrderByFirstName(String lastName);
+	List<User> findFirst10ByLastNameOrderByFirstName(String lastName, Pageable pageable);
+	
 
 }

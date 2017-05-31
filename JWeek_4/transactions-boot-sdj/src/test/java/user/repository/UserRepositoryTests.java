@@ -18,6 +18,7 @@ package user.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
@@ -25,12 +26,14 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.jdbc.JdbcTestUtils;
 import org.springframework.transaction.annotation.Transactional;
 
+import user.domain.Address;
 import user.domain.User;
 
 /**
@@ -52,6 +55,10 @@ import user.domain.User;
 @Sql(statements = "insert into users(first_name, last_name, age) values('Sonya', 'Smith', 57)")
 @Sql(statements = "insert into users(first_name, last_name, age) values('Vandor', 'Smith', 34)")
 @Sql(statements = "insert into users(first_name, last_name, age) values('Waldo', 'Smith', 51)")
+@Sql(statements = "insert into address(user_id, street, number, pc) values('2', 'Los palotes', 51, 5507)")
+@Sql(statements = "insert into address(user_id, street, number, pc) values('3', 'La macarena', 3, 5507)")
+@Sql(statements = "insert into address(user_id, street, number, pc) values('2', 'El capon', 4, 8001)")
+@Sql(statements = "insert into address(user_id, street, number, pc) values('4', 'Las marras', 456, 8001)")
 public class UserRepositoryTests {
 
 	@Autowired
@@ -59,6 +66,8 @@ public class UserRepositoryTests {
 
 	@Autowired
 	JdbcTemplate jdbcTemplate;
+	
+	private PageRequest pageRequest= new PageRequest(1, 20);
 	
 	private final int number_Entries = 12;
 
@@ -75,21 +84,21 @@ public class UserRepositoryTests {
 
 	@Test
 	public void findById() {
-		User user = repository.findByFirstNameAndLastName("John", "Smith");
-		user = repository.findById(user.getId());
+		User user = repository.findByFirstNameAndLastName("John", "Smith", pageRequest);
+		user = repository.findOne(user.getId());
 		assertThat(user.getFirstName()).isEqualTo("John");
 	}
 
 	@Test
 	public void findByFirstNameAndLastName() {
-		User user = repository.findByFirstNameAndLastName("John", "Smith");
+		User user = repository.findByFirstNameAndLastName("John", "Smith", pageRequest);
 		assertThat(user.getFirstName()).isEqualTo("John");
 		assertThat(user.getLastName()).isEqualTo("Smith");
 	}
 	
 	@Test
 	public void findFirstWithLastNameOrderByFIrstName() {
-		User user = repository.findFirstByLastNameOrderByFirstName("Smith");
+		User user = repository.findFirstByLastNameOrderByFirstName("Smith", pageRequest);
 		assertThat(user.getFirstName()).isEqualTo("Celia");
 	}
 
@@ -103,7 +112,7 @@ public class UserRepositoryTests {
 	@Test
 	public void deleteById() {
 		assertNumUsers(number_Entries);
-		User user = repository.findByFirstNameAndLastName("John", "Smith");
+		User user = repository.findByFirstNameAndLastName("John", "Smith", pageRequest);
 		repository.delete(user.getId());
 		repository.flush();
 		assertNumUsers(number_Entries-1);
@@ -112,13 +121,13 @@ public class UserRepositoryTests {
 	@Test
 	public void findFirst10ByLastName(){
 		assertNumUsers(number_Entries);
-		List<User> userList = repository.findFirst10ByLastNameOrderByFirstName("Smith");
+		List<User> userList = repository.findFirst10ByLastNameOrderByFirstName("Smith", pageRequest);
 		assertThat(userList.get(0).getFirstName()).isEqualTo("Celia");
 		assertThat(userList.get(9).getFirstName()).isEqualTo("Vandor");
 	}
 
 	private void saveJaneDoe() {
-		repository.save(new User("Jane", "Doe", 38));
+		repository.save(new User("Jane", "Doe", 38, Arrays.asList(new Address(0, "permis", 33,5507))));
 		repository.flush();
 	}
 

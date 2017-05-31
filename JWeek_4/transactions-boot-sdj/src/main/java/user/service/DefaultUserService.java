@@ -17,6 +17,7 @@
 package user.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,12 +37,12 @@ public class DefaultUserService implements UserService {
 
 	@Override
 	public User findById(Long id) {
-		return this.userRepository.findById(id);
+		return this.userRepository.findOne(id);
 	}
 
 	@Override
 	public User findByFirstNameAndLastName(String firstName, String lastName) {
-		return this.userRepository.findByFirstNameAndLastName(firstName, lastName);
+		return this.userRepository.findByFirstNameAndLastName(firstName, lastName, new PageRequest(1, 20));
 	}
 
 	@Transactional(readOnly = false)

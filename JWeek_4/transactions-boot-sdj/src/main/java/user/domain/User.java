@@ -16,11 +16,15 @@
 
 package user.domain;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -48,9 +52,12 @@ public class User {
 	
 	@Column(nullable=false)
 	private Integer age;
+	
+	@OneToMany(cascade = {CascadeType.ALL})
+	private List<Address> addresses;
 
-	public User(String firstName, String lastName, Integer age) {
-		this(null, firstName, lastName, age);
+	public User(String firstName, String lastName, Integer age, List<Address> addresses) {
+		this(null, firstName, lastName, age, addresses);
 	}
 
 }

@@ -48,7 +48,7 @@ public class User {
 	
 	@Column(nullable=false)
 	private Integer age;
-
+	
 	public User(String firstName, String lastName, Integer age) {
 		this(null, firstName, lastName, age);
 	}

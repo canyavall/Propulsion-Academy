@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -36,7 +37,18 @@ public class Address {
 	@Column()
 	private int pc;
 	
+	@ManyToOne
+	private User user;
+	
 	public Address(long userId, String street, Integer number, Integer pc) {
-		this(null, userId, street, number, pc);
+		this(null, userId, street, number, pc, null);
+	}
+
+	public Address(long userId, String street, Integer number, Integer pc, User user) {
+		this();
+		this.street = street;
+		this.number = number;
+		this.pc = pc;
+		this.user = user;
 	}
 }

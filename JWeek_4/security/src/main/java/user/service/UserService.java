@@ -22,7 +22,7 @@ import user.domain.User;
 
 public interface UserService {
 
-	void registerNewUser(User user);
+	User registerNewUser(User user);
 
 	User save(User user);
 

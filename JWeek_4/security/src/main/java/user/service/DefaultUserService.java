@@ -58,20 +58,20 @@ public class DefaultUserService implements UserService {
 
 	@Transactional(readOnly = false)
 	@Override
-	@PreAuthorize("hasRole('ROLE_USER')")
+
 	public User save(User user) {
 		return this.userRepository.save(user);
 	}
 
 	@Transactional(readOnly = false)
 	@Override
-	public void registerNewUser(User user) {
-		this.userRepository.save(user);
+	public User registerNewUser(User user) {
+		return this.userRepository.save(user);
 	}
 
 	@Transactional(readOnly = false)
 	@Override
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
 	public void deleteById(Long id) {
 		this.userRepository.delete(id);
 	}

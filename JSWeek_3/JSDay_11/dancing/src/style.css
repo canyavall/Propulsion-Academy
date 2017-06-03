@@ -1,0 +1,14 @@
+.wrapper{
+  width: 500px;
+  height: 500px;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+.cell{
+  float: left;
+  width: 19%;
+  height: 19%;
+  border: 1px solid black;
+}

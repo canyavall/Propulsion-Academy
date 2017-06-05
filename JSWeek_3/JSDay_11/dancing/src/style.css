@@ -12,3 +12,7 @@
   height: 19%;
   border: 1px solid black;
 }
+
+.selected{
+  background-color: black;
+}

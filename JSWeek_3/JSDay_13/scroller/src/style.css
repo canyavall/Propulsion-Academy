@@ -1,0 +1,42 @@
+.wrapper {
+  width: 600px;
+  top: 25%;
+  left: 25%;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+
+.item {
+  display: inline-block;
+  width:150px;
+  height: 150px;
+  background-color: turquoise;
+}
+
+.horizontal-scroll {
+  transition: all 1s ease;
+}
+
+i {
+    border: solid white;
+    border-width: 0 15px 15px 0;
+    display: inline-block;
+    padding: 25px;
+    opacity: 0.5;
+    z-index:10;
+    position:absolute;
+    top:35px;
+}
+
+.arrowLeft {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+    left:20px;
+}
+
+.arrowRight {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    right:20px;
+}

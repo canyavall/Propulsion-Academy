@@ -1,5 +1,39 @@
-.wrapperScroll {
+/*General*/
+i {
+    border: solid white;
+    border-width: 0 15px 15px 0;
+    display: inline-block;
+    padding: 25px;
+    opacity: 0.6;
+    z-index:10;
+    position:absolute;
+}
+
+.wrapper{
   width: 100%;
+  position: relative;
+}
+
+.arrowLeft {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+    left:20px;
+}
+
+.arrowRight {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    right:20px;
+}
+
+/*Slider*/
+.slideArrowRigth, .slideArrowLeft {
+  top:100px;
+}
+
+
+/*Scroll*/
+.scrollWrapper {
   overflow: hidden;
   white-space: nowrap;
   position: relative;
@@ -12,29 +46,10 @@
   background-color: turquoise;
 }
 
-.horizontal-scroll {
+.scrollHorizontal {
   transition: all 1s ease;
 }
 
-i {
-    border: solid white;
-    border-width: 0 15px 15px 0;
-    display: inline-block;
-    padding: 25px;
-    opacity: 0.5;
-    z-index:10;
-    position:absolute;
-    top:35px;
-}
-
-.arrowLeftScroll {
-    transform: rotate(135deg);
-    -webkit-transform: rotate(135deg);
-    left:20px;
-}
-
-.arrowRightScroll {
-    transform: rotate(-45deg);
-    -webkit-transform: rotate(-45deg);
-    right:20px;
+.scrollArrowRigth, .scrollArrowLeft {
+  top:35px;
 }

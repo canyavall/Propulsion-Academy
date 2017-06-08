@@ -1,15 +1,19 @@
 package think;
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class findMissingLetter{
 	
-  char[] abc = ["b","c", "d","f", "g", "h", "i", "j", "k", "l", 
-                "m", "n","o","p","q","r","s","t","u","v","w","x","y","z"];
+  private static String abc = "abcdefghijklmnopqrstuvwxyz";
   
-  public static char findMissingLetter(char[] array)
-  {
+	 public static void main(String[] args) {
+		 findMissingLetter(new char[] { 'a','b','c','d','f' });
+	}
+  public static char findMissingLetter(char[] array){
+	  char[] charArray = abc.toCharArray();
+
+	  
+	  
     return ' ';
   }
 }

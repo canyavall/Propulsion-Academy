@@ -28,7 +28,6 @@ const decrement = {
 
 function render() {
   const counterEl = document.getElementById('counter');
-  console.log(counterEl);
   const state = store.getState;
   counterEl.innerHTML = state;
 }

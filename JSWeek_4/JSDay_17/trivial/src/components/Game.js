@@ -13,8 +13,17 @@ const Game  = (props) => (
           <Header />
         </div>
         <div className="questionContainer">
-          <Question history={props.history} questionId = { props.match.params.questionId }/>
+          <Question history={props.history} questionId = { props.match.params.questionId } nextQuestion = { nextQuestion } results = {results}/>
         </div>
       </div>
-    )
+    );
+
+  function nextQuestion () {
+    const numQuestion = this.questionId*1+1;
+    this.history.push("/game/" + numQuestion);
+  }
+
+  function results (){
+    this.history.push("/result");
+  }
 export default Game;

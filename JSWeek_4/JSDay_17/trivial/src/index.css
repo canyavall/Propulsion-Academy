@@ -38,3 +38,9 @@ body {
 .green {
   color: green;
 }
+
+.inblock {
+  display: block;
+  font-size: 120%;
+  margin-bottom: 10px;
+}

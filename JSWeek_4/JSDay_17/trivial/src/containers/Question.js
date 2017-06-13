@@ -15,7 +15,6 @@ class Question extends Component {
         <div>
         { Object.keys(currentQuestion[1]).map((key, index) =>
           <RaisedButton key={key} onClick={() => this.answerClicked(key)} label= {currentQuestion[1][key][0]} />
-
         )}
         </div>
       </div>
@@ -23,13 +22,13 @@ class Question extends Component {
   }
 
   answerClicked = (key) => {
-    console.log(this.props);
     const currentQuestion = this.props.questions[this.props.questionId*1];
     this.props.dispatch(incTotalQuestion());
     if (currentQuestion[1][key][1]) this.props.dispatch(incRightQuestion());
     if(Object.keys(this.props.questions).length !== (this.props.questionId*1)) {
-      this.props.history.push(this.props.questionId*1+1);
-      console.log(this.props.history); //Tengo que llamar la funcion al padre
+      this.props.nextQuestion();
+    }else{
+      this.props.results();
     }
   }
 }

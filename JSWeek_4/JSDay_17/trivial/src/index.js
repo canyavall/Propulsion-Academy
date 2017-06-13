@@ -7,6 +7,7 @@ import {BrowserRouter as  Router, Route, Switch } from 'react-router-dom';
 import store from './store/index';
 import Game from './components/Game';
 import Home from './components/Home';
+import Result from './containers/Result';
 import './index.css';
 
 
@@ -19,6 +20,7 @@ ReactDOM.render(
                 <Switch>
                   <Route exact path="/" component={ Home } />
                   <Route exact path="/game/:questionId" component={ Game } />
+                  <Route exact path="/result" component={ Result } />
                 </Switch>
               </Router>
             </Provider>

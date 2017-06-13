@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
-import Todolist from './components/Todo/index';
+import Todolist from './components/TodoList/index';
 import NewTodo from './components/NewTodo/index';
 import Header from './components/Header/index';
+import Store from './store';
 
 export default class App extends Component {
   constructor (props){

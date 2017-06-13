@@ -3,11 +3,33 @@ const DEL = 'del';
 const INC = 'inc';
 const DEC = 'dec';
 
-const combinedRed = Redux.combineReducers({
-  reducerTodo,
-  reducerScore
-})
+const initialState = {
+  todos: [],
+  counter: 0
+}
 
+const reducer = (state = initialState, action) => {
+
+  switch (action.type) {
+    case ADD:
+    console.log(action.text);
+      state.todos.push(action.text);
+      break;
+    case DEL:
+      state -= action.amount;
+      break;
+    case INC:
+      state.counter += action.amount;
+      break;
+    case DEC:
+      state.counter -= action.amount;
+      break;
+    default:
+  }
+  return state;
+}
+
+const store = Redux.createStore(reducer);
 
 const increment = {
   type: INC,
@@ -19,10 +41,6 @@ const decrement = {
   amount: 1
 }
 
-
-const store = Redux.createStore(combinedRed);
-
-
 function addTodo(textValue){
   return {
         type: ADD,
@@ -32,25 +50,24 @@ function addTodo(textValue){
 
 function delTodo(){
   let text = document.getElementById('todoText');
-  store.reducerTodo.dispatch({
+  store.dispatch({
         type: ADD,
         text: text.value
       });
   text.value = "";
 }
 
-
 function render() {
-  const state = store.getState();
+    const state = store.getState();
+
   //Counter
   const counterEl = document.getElementById('counter');
-  counterEl.innerHTML = state.reducerScore;
-
+  counterEl.innerHTML = state.counter;
   //List
   const listEl = document.getElementById('todoList');
   listEl.innerHTML = "";
-  if (state.reducerTodo.length > 0){
-    state.reducerTodo.forEach((todo) => {
+  if (state.todos.length > 0){
+    state.todos.forEach((todo) => {
       var li = document.createElement("li");
       li.innerHTML = todo;
       listEl.appendChild(li);
@@ -72,6 +89,6 @@ document.getElementById('decrement').addEventListener('click', (e)=>{
 
 document.getElementById('addTodoButton').addEventListener('click', (e)=>{
   let text = document.getElementById('todoText');
-  store.dispatch(addTodo(text.value));
   text.value = "";
+  store.dispatch(addTodo(text.value));
 })

@@ -8,6 +8,7 @@ import {BrowserRouter as  Router, Route, Switch } from 'react-router-dom';
 import store from './service/store'
 import Home from './components/Home';
 import Login from './containers/Login'
+import Feeds from './components/Feeds'
 import './index.css';
 
 injectTapEventPlugin();
@@ -18,7 +19,6 @@ const muiTheme = getMuiTheme({
     },
 });
 
-
 ReactDOM.render(
           <MuiThemeProvider muiTheme={muiTheme}>
             <Provider store = {store}>
@@ -26,6 +26,7 @@ ReactDOM.render(
                 <Switch>
                   <Route exact path="/" component={ Home } />
                   <Route exact path="/login" component={ Login } />
+                  <Route exact path="/feeds" component={ Feeds } />
                 </Switch>
               </Router>
             </Provider>

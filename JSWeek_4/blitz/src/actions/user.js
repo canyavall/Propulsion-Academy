@@ -17,16 +17,21 @@ export const checkLogin = ({ email, password }) => (dispatch, getState) => {
     headers: headers,
     body: JSON.stringify(body)
   };
-
-  return fetch('https://propulsion-blitz.herokuapp.com/api/login', config)
-    .then(res => res.json())
+  const URL = "https://propulsion-blitz.herokuapp.com/api/login";
+  return fetch(URL, config)
+    .then(res => {
+      if (res.status === 200) return res.json();
+        return res.status;
+    })
     .then(user => {
-      const action = loginUser(user);
-      dispatch(action);
-      if (user.email) return "ok"
+      if (user !== false){
+        const action = loginUser(user);
+        dispatch(action);
+      }
     })
     .catch(err => {
-      console.log('in da error');
-    })
+          console.log('error: ', err);
+      });
+
 
 }

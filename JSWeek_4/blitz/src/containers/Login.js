@@ -26,10 +26,11 @@ class Login extends React.Component {
   }
 
   submitForm = (e) => {
-    e.preventDefault()
-    const res = this.props.dispatch(checkLogin(this.state))
-    res.then((data) => console.log(data)).catch(err => {
-      console.log('in da error');
+    e.preventDefault();
+    this.props.dispatch(checkLogin(this.state)).then(() => {
+      if (typeof this.props.user.action === 'object'){
+        this.props.history.push("/feeds");
+      }
     });
 
   }
@@ -67,4 +68,8 @@ class Login extends React.Component {
   }
 }
 
-export default connect()(Login);
+const mapStateToProps = (state) => {
+  return state;
+}
+
+export default connect(mapStateToProps)(Login);

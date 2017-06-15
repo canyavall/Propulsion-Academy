@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 import { createStore, applyMiddleware } from 'redux'; // check we also require `applyMiddleware`
 import thunk from 'redux-thunk'; // require the Middleware
-import feeds from './reducers/feeds';
+import feed from './reducers/feed';
 import user from './reducers/user';
 
 const combinedRed = combineReducers({
   user,
-  feeds
+  feed
 })
 
 const store = createStore(combinedRed, applyMiddleware(thunk));

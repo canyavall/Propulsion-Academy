@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux'
 import Paper from 'material-ui/Paper';
 import {Tabs, Tab} from 'material-ui/Tabs';
-import Header from '../components/Header';
+import Header from './Header';
 import {checkLogin} from '../actions/user'
 import {bodyContainer, paperStyle} from '../components/style';
 
@@ -27,18 +27,16 @@ class Login extends React.Component {
 
   submitForm = (e) => {
     e.preventDefault();
-    this.props.dispatch(checkLogin(this.state)).then(() => {
-      if (typeof this.props.user.action === 'object'){
-        this.props.history.push("/feeds");
-      }
+    this.props.dispatch(checkLogin(this.state))
+      .then(() => {
+        if (this.props.user.token.length > 0) this.props.history.push("/feed");
     });
-
   }
 
   render () {
     return (<div>
       <div>
-        <Header />
+        <Header isLoggedIn={this.props.isLoggedIn}/>
       </div>
       <div style= {bodyContainer}>
         <Paper style={paperStyle} zDepth={2}>
@@ -55,6 +53,9 @@ class Login extends React.Component {
             <Tab label="Register">
               <div>
                 <form>
+                  <input type="text" placeholder="Name" />
+                  <input type="text" placeholder="Surname" />
+                  <input type="text" placeholder="Email" />
                   <input type="text" placeholder="Username" />
                   <input type="password" placeholder="Password" />
                   <input type="submit" />
@@ -69,7 +70,10 @@ class Login extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return state;
+  return {
+    isLoggedIn: state.user === 'object',
+    user: state.user
+  };
 }
 
 export default connect(mapStateToProps)(Login);

@@ -41,3 +41,7 @@ input[type="submit"]:hover,
 input[type="button"]:hover{
     background: #ff9900;
 }
+
+hr{
+	border-top: 1px solid #8c8b8b;
+}

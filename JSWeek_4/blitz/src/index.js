@@ -8,10 +8,24 @@ import {BrowserRouter as  Router, Route, Switch } from 'react-router-dom';
 import store from './service/store'
 import Home from './components/Home';
 import Login from './containers/Login'
-import Feeds from './components/Feeds'
+import Feed from './containers/Feed'
+import {loginUser} from './actions/user'
 import './index.css';
 
 injectTapEventPlugin();
+
+// Check localstorage to get the data from the user
+function getToken() {
+  const StorageUser = {
+    token: localStorage.getItem('userToken'),
+    username: localStorage.getItem('username'),
+    avatar: localStorage.getItem('userAvatar')
+  }
+  const action = loginUser(StorageUser);
+  store.dispatch(action);
+}
+
+getToken();
 
 const muiTheme = getMuiTheme({
     palette: {
@@ -26,7 +40,7 @@ ReactDOM.render(
                 <Switch>
                   <Route exact path="/" component={ Home } />
                   <Route exact path="/login" component={ Login } />
-                  <Route exact path="/feeds" component={ Feeds } />
+                  <Route exact path="/feed" component={ Feed } />
                 </Switch>
               </Router>
             </Provider>

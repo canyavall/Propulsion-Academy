@@ -1,8 +1,12 @@
 export const loginUser = (user) => {
   return {
-    type: 'LOGIN_USER',
-    action: user
+    type: 'GET_USER',
+    content: user
   }
+}
+
+export const userLogout = () => {
+  return { type: 'USER_LOGOUT' }
 }
 
 export const checkLogin = ({ email, password }) => (dispatch, getState) => {
@@ -25,6 +29,9 @@ export const checkLogin = ({ email, password }) => (dispatch, getState) => {
     })
     .then(user => {
       if (user !== false){
+        localStorage.setItem('userToken', user.token);
+        localStorage.setItem('userAvatar', user.avatar);
+        localStorage.setItem('username', user.username);
         const action = loginUser(user);
         dispatch(action);
       }
@@ -32,6 +39,4 @@ export const checkLogin = ({ email, password }) => (dispatch, getState) => {
     .catch(err => {
           console.log('error: ', err);
       });
-
-
 }

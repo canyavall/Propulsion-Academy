@@ -5,7 +5,7 @@ export const barButtonStyle = {
 };
 
 export const bodyContainer = {
-  width:'30%',
+  width:'35%',
   margin:'50px auto',
   fontSize: '300%',
   textAlign: 'center'

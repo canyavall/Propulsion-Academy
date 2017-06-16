@@ -4,9 +4,7 @@ import {bodyContainer} from './style';
 
 const Home = () => (
       <div>
-        <div>
-          <Header />
-        </div>
+        <Header />
         <div style={bodyContainer}>
           Welcome to blitz!
         </div>

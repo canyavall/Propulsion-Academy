@@ -4,6 +4,7 @@ import Header from './Header';
 import { bodyContainer } from '../components/style';
 import { getFeedList } from '../actions/feed';
 import Blitz from '../components/Blitz';
+import Loader from '../components/Loader';
 
 class Feed extends React.Component {
 
@@ -12,18 +13,15 @@ class Feed extends React.Component {
   }
 
   render () {
-    console.log(this.props);
-    if ( Object.keys(this.props.feed).length === 0 ) return <div>Loading</div>
-    return (
-        <div>
+    if ( Object.keys(this.props.feed).length === 0 ) return <Loader />;
+      return (
           <div>
             <Header />
+            <div style={bodyContainer}>
+              { this.props.feed.map((blitz, index) => <Blitz key={index} data={blitz} showHeader={ true }/>)}
+            </div>
           </div>
-          <div style={bodyContainer}>
-            { this.props.feed.map((blitz, index) => <Blitz key= {index} data={blitz}/>)}
-          </div>
-        </div>
-      )
+        )
   }
 }
 

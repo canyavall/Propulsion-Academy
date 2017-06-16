@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import Paper from 'material-ui/Paper';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import Header from './Header';
-import {checkLogin} from '../actions/user'
+import {checkLogin} from '../actions/currentuser'
 import {bodyContainer, paperStyle} from '../components/style';
 
 class Login extends React.Component {
@@ -29,7 +29,7 @@ class Login extends React.Component {
     e.preventDefault();
     this.props.dispatch(checkLogin(this.state))
       .then(() => {
-        if (this.props.user.token.length > 0) this.props.history.push("/feed");
+        if (this.props.currentuser.token.length > 0) this.props.history.push("/feed");
     });
   }
 
@@ -71,8 +71,7 @@ class Login extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    isLoggedIn: state.user === 'object',
-    user: state.user
+    currentuser: state.currentuser
   };
 }
 

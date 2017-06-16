@@ -1,13 +1,13 @@
-export const getFeed = (feed) => {
+export const getUsers = (users) => {
   return {
-    type: 'GET_FEED',
-    content: feed
+    type: 'GET_USERS',
+    content: users
   }
 }
 
-export const getFeedList = () => (dispatch, getState) => {
+export const getUsersList = () => (dispatch, getState) => {
   const token = getState().currentuser.token;
-  const URL = "https://propulsion-blitz.herokuapp.com/api/feed";
+  const URL = "https://propulsion-blitz.herokuapp.com/api/users";
   const config = {
     headers: {
       Authorization: `Bearer ${token}`
@@ -19,10 +19,15 @@ export const getFeedList = () => (dispatch, getState) => {
       if (res.status === 200) return res.json();
         return res.status;
     })
-    .then(feed => {
-      if (feed !== false) dispatch(getFeed(feed));
+    .then(users => {
+      if (users !== false){
+        const action = getUsers(users);
+        dispatch(action);
+      }
     })
     .catch(err => {
           console.log('error: ', err);
       });
+
+
 }

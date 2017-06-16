@@ -7,21 +7,23 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import {BrowserRouter as  Router, Route, Switch } from 'react-router-dom';
 import store from './service/store'
 import Home from './components/Home';
-import Login from './containers/Login'
-import Feed from './containers/Feed'
-import {loginUser} from './actions/user'
+import Login from './containers/Login';
+import Feed from './containers/Feed';
+import Users from './containers/Users';
+import User from './containers/User'
+import { loginCurrentUser } from './actions/currentuser';
 import './index.css';
 
 injectTapEventPlugin();
 
 // Check localstorage to get the data from the user
 function getToken() {
-  const StorageUser = {
+  const StorageCurrentUser = {
     token: localStorage.getItem('userToken'),
     username: localStorage.getItem('username'),
-    avatar: localStorage.getItem('userAvatar')
+    avatar: localStorage.getItem('userAvatar'),
   }
-  const action = loginUser(StorageUser);
+  const action = loginCurrentUser(StorageCurrentUser);
   store.dispatch(action);
 }
 
@@ -41,6 +43,8 @@ ReactDOM.render(
                   <Route exact path="/" component={ Home } />
                   <Route exact path="/login" component={ Login } />
                   <Route exact path="/feed" component={ Feed } />
+                  <Route exact path="/users" component={ Users } />
+                  <Route exact path="/users/:userId" component={ User } />
                 </Switch>
               </Router>
             </Provider>

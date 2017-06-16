@@ -1,12 +1,12 @@
-export const loginUser = (user) => {
+export const loginCurrentUser = (user) => {
   return {
-    type: 'GET_USER',
+    type: 'GET_CURRENTUSER',
     content: user
   }
 }
 
 export const userLogout = () => {
-  return { type: 'USER_LOGOUT' }
+  return { type: 'CURRENTUSER_LOGOUT' }
 }
 
 export const checkLogin = ({ email, password }) => (dispatch, getState) => {
@@ -32,7 +32,7 @@ export const checkLogin = ({ email, password }) => (dispatch, getState) => {
         localStorage.setItem('userToken', user.token);
         localStorage.setItem('userAvatar', user.avatar);
         localStorage.setItem('username', user.username);
-        const action = loginUser(user);
+        const action = loginCurrentUser(user);
         dispatch(action);
       }
     })

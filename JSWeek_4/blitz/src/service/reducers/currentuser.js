@@ -4,29 +4,26 @@ const initialUser = {
   "avatar": ""
 };
 
-const user = (state = initialUser, action) => {
+const currentuser = (state = initialUser, action) => {
   switch (action.type) {
 
-    case 'GET_USER':
+    case 'GET_CURRENTUSER':
     const newState = { ...state }
     newState.token = action.content.token;
     newState.username = action.content.username;
     newState.avatar = action.content.avatar;
       return newState;
 
-    case 'USER_LOGOUT':
+    case 'CURRENTUSER_LOGOUT':
       return {
         "token": null,
         "username": null,
         "avatar": null
       };
 
-    case 'GET_USER_INFO':
-      return action.content
-
     default:
       return state;
   }
 }
 
-export default user;
+export default currentuser;
